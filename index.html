@@ -3,6 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#000000">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="永不失联">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192x192.png">
 <title>永不失联 · 最新地址永久入口</title>
 <style>
 *{margin:0;padding:0}
@@ -18,10 +24,103 @@ ul a{color:#f90;font-size:16px;font-weight:500;letter-spacing:1px}
 ul a:hover{text-decoration:underline}
 .bt{margin-top:30px;padding-top:20px;border-top:1px solid #eee;font-size:13px;color:#333}
 .bt p{margin-bottom:4px}
-@media(max-width:480px){.h1{font-size:18px}.h2{font-size:15px}ul a{font-size:14px}}
+
+/* PWA 安装按钮样式 */
+.pwa-install-btn{
+  display:none;
+  position:fixed;
+  top:12px;
+  right:12px;
+  z-index:9999;
+  background:#f90;
+  color:#fff;
+  border:none;
+  border-radius:20px;
+  padding:8px 16px;
+  font-size:13px;
+  font-weight:600;
+  cursor:pointer;
+  box-shadow:0 2px 8px rgba(0,0,0,.2);
+  transition:all .2s;
+  letter-spacing:1px
+}
+.pwa-install-btn:hover{
+  background:#e68000;
+  transform:translateY(-1px);
+  box-shadow:0 4px 12px rgba(0,0,0,.25)
+}
+.pwa-install-btn:active{
+  transform:translateY(0)
+}
+.pwa-install-btn.show{
+  display:inline-block
+}
+
+/* PWA 安装提示横幅 */
+.pwa-banner{
+  display:none;
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  background:#000;
+  color:#fff;
+  padding:12px 16px;
+  z-index:9998;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px
+}
+.pwa-banner.show{
+  display:flex
+}
+.pwa-banner-text{
+  font-size:14px;
+  flex:1;
+  text-align:left
+}
+.pwa-banner-btn{
+  background:#f90;
+  color:#fff;
+  border:none;
+  border-radius:16px;
+  padding:6px 14px;
+  font-size:13px;
+  font-weight:600;
+  cursor:pointer;
+  white-space:nowrap
+}
+.pwa-banner-close{
+  background:none;
+  border:none;
+  color:#999;
+  font-size:18px;
+  cursor:pointer;
+  padding:0 4px
+}
+
+@media(max-width:480px){
+  .h1{font-size:18px}
+  .h2{font-size:15px}
+  ul a{font-size:14px}
+  .pwa-install-btn{
+    padding:6px 12px;
+    font-size:12px
+  }
+}
 </style>
 </head>
 <body>
+<!-- PWA 安装按钮 -->
+<button id="pwaInstallBtn" class="pwa-install-btn" title="安装到桌面">📲 安装应用</button>
+
+<!-- PWA 安装提示横幅 -->
+<div id="pwaBanner" class="pwa-banner">
+  <span class="pwa-banner-text">📲 添加到主屏幕，永不失联</span>
+  <button id="pwaBannerBtn" class="pwa-banner-btn">安装</button>
+  <button id="pwaBannerClose" class="pwa-banner-close">×</button>
+</div>
+
 <div class="h1">永不失联</div>
 <div class="h2">4@455555.XYZ</div>
 <div class="c">
@@ -30,7 +129,7 @@ ul a:hover{text-decoration:underline}
 <ul>
 <li><a href="https://lvideos.pages.dev/" target="_blank">www.994555.XYZ</a></li>
 <li><a href="https://www.nixi.eu.org/" target="_blank">994555.XYZ</a></li>
-  
+
 </ul>
 <div class="bt">
 <p>多收藏不同网址 📌 推荐电信联通访问</p>
@@ -38,5 +137,94 @@ ul a:hover{text-decoration:underline}
 <p>推荐截图 📷 保存本页不迷路</p>
 </div>
 </div>
+
+<script>
+// PWA 安装逻辑
+let deferredPrompt = null;
+const installBtn = document.getElementById('pwaInstallBtn');
+const banner = document.getElementById('pwaBanner');
+const bannerBtn = document.getElementById('pwaBannerBtn');
+const bannerClose = document.getElementById('pwaBannerClose');
+
+// 监听 beforeinstallprompt 事件
+window.addEventListener('beforeinstallprompt', (e) => {
+  // 阻止默认的迷你信息栏
+  e.preventDefault();
+  deferredPrompt = e;
+  
+  // 显示安装按钮和横幅
+  installBtn.classList.add('show');
+  banner.classList.add('show');
+});
+
+// 安装按钮点击事件
+installBtn.addEventListener('click', async () => {
+  if (!deferredPrompt) return;
+  
+  deferredPrompt.prompt();
+  const { outcome } = await deferredPrompt.userChoice;
+  
+  if (outcome === 'accepted') {
+    console.log('用户已安装 PWA');
+    installBtn.classList.remove('show');
+    banner.classList.remove('show');
+  } else {
+    console.log('用户取消安装');
+  }
+  deferredPrompt = null;
+});
+
+// 横幅安装按钮
+bannerBtn.addEventListener('click', async () => {
+  if (!deferredPrompt) return;
+  
+  deferredPrompt.prompt();
+  const { outcome } = await deferredPrompt.userChoice;
+  
+  if (outcome === 'accepted') {
+    installBtn.classList.remove('show');
+    banner.classList.remove('show');
+  }
+  deferredPrompt = null;
+});
+
+// 关闭横幅
+bannerClose.addEventListener('click', () => {
+  banner.classList.remove('show');
+});
+
+// 监听 appinstalled 事件
+window.addEventListener('appinstalled', () => {
+  console.log('PWA 已安装');
+  installBtn.classList.remove('show');
+  banner.classList.remove('show');
+  deferredPrompt = null;
+});
+
+// 检测是否已安装（iOS Safari）
+if (window.navigator.standalone === true) {
+  installBtn.classList.remove('show');
+  banner.classList.remove('show');
+}
+
+// 检测是否已安装（display-mode: standalone）
+if (window.matchMedia('(display-mode: standalone)').matches) {
+  installBtn.classList.remove('show');
+  banner.classList.remove('show');
+}
+
+// 注册 Service Worker
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+      .then((registration) => {
+        console.log('Service Worker 注册成功:', registration.scope);
+      })
+      .catch((error) => {
+        console.log('Service Worker 注册失败:', error);
+      });
+  });
+}
+</script>
 </body>
 </html>
