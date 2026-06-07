@@ -13,24 +13,11 @@
 <style>
 *{margin:0;padding:0}
 body{font:16px/1.6 system-ui,-apple-system,sans-serif;background:#fff;color:#000;text-align:center}
-a{color:#000;text-decoration:none}
 .h1{background:#000;padding:12px 20px;color:#fff;font-size:22px;font-weight:700;letter-spacing:2px}
 .h2{background:#f90;padding:8px 20px;font-size:18px;font-weight:700;letter-spacing:1px}
 .c{padding:20px;max-width:600px;margin:0 auto}
 .tip{font-size:14px;color:#333;margin-bottom:6px}
 .tip-s{font-size:12px;color:#666;margin-bottom:16px}
-ul{list-style:none;margin-bottom:24px}
-ul li{position:relative}
-ul a{color:#f90;font-size:16px;font-weight:500;letter-spacing:1px;display:block;padding:4px 0}
-ul a:hover{text-decoration:underline}
-.status-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:middle}
-.status-ok{background:#4caf50}
-.status-fail{background:#f44336}
-.status-checking{background:#ff9800;animation:pulse 1s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-.status-text{font-size:11px;color:#999;margin-left:4px}
-.offline-badge{display:none;background:#f44336;color:#fff;font-size:11px;padding:2px 8px;border-radius:10px;margin-left:8px;font-weight:400}
-.offline-badge.show{display:inline-block}
 .bt{margin-top:30px;padding-top:20px;border-top:1px solid #eee;font-size:13px;color:#333}
 .bt p{margin-bottom:4px}
 
@@ -111,7 +98,6 @@ ul a:hover{text-decoration:underline}
 @media(max-width:480px){
   .h1{font-size:18px}
   .h2{font-size:15px}
-  ul a{font-size:14px}
   .pwa-install-btn{
     padding:6px 12px;
     font-size:12px
@@ -130,22 +116,11 @@ ul a:hover{text-decoration:underline}
   <button id="pwaBannerClose" class="pwa-banner-close">×</button>
 </div>
 
-<div class="h1">永不失联<span id="offlineBadge" class="offline-badge">离线模式</span></div>
+<div class="h1">永不失联</div>
 <div class="h2">4@455555.XYZ</div>
 <div class="c">
 <p class="tip">📧 发邮件 30 秒内自动回复最新地址</p>
 <p class="tip-s">未回复就是被拦截请更换其它邮箱发送</p>
-<ul id="domainList">
-<li><a href="https://994555.xyz/" target="_blank" data-domain="https://994555.xyz/"><span class="status-dot status-checking"></span>994555.xyz</a></li>
-<li><a href="https://4666.eu.org/" target="_blank" data-domain="https://4666.eu.org/"><span class="status-dot status-checking"></span>4666.eu.org</a></li>
-<li><a href="https://4545.eu.org/" target="_blank" data-domain="https://4545.eu.org/"><span class="status-dot status-checking"></span>4545.eu.org</a></li>
-<li><a href="https://6767.eu.org/" target="_blank" data-domain="https://6767.eu.org/"><span class="status-dot status-checking"></span>6767.eu.org</a></li>
-<li><a href="https://bizi.eu.org/" target="_blank" data-domain="https://bizi.eu.org/"><span class="status-dot status-checking"></span>bizi.eu.org</a></li>
-<li><a href="https://buqu.eu.org/" target="_blank" data-domain="https://buqu.eu.org/"><span class="status-dot status-checking"></span>buqu.eu.org</a></li>
-<li><a href="https://daba.eu.org/" target="_blank" data-domain="https://daba.eu.org/"><span class="status-dot status-checking"></span>daba.eu.org</a></li>
-<li><a href="https://nixi.eu.org/" target="_blank" data-domain="https://nixi.eu.org/"><span class="status-dot status-checking"></span>nixi.eu.org</a></li>
-<li><a href="https://qima.eu.org/" target="_blank" data-domain="https://qima.eu.org/"><span class="status-dot status-checking"></span>qima.eu.org</a></li>
-</ul>
 <div class="bt">
 <p>多收藏不同网址 📌 推荐电信联通访问</p>
 <p>移动网 / 国产浏览器会拦截网址</p>
@@ -218,59 +193,6 @@ if ('serviceWorker' in navigator) {
       });
   });
 }
-
-// ========== 域名可用性检测 ==========
-// 检测每个备用域名是否可访问，自动标记状态
-// 绿色=可访问，红色=不可访问
-const offlineBadge = document.getElementById('offlineBadge');
-
-function checkDomains() {
-  const links = document.querySelectorAll('#domainList a[data-domain]');
-  links.forEach((link) => {
-    const url = link.getAttribute('data-domain');
-    const dot = link.querySelector('.status-dot');
-
-    // 使用 no-cors 模式检测（不会触发跨域问题）
-    // 如果域名被封/DNS被污染，fetch 会失败
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 5000);
-
-    fetch(url, { mode: 'no-cors', signal: controller.signal, cache: 'no-store' })
-      .then(() => {
-        clearTimeout(timeout);
-        dot.className = 'status-dot status-ok';
-      })
-      .catch(() => {
-        clearTimeout(timeout);
-        dot.className = 'status-dot status-fail';
-      });
-  });
-}
-
-// 离线检测
-function updateOnlineStatus() {
-  if (!navigator.onLine) {
-    offlineBadge.classList.add('show');
-    // 离线时所有域名标记为红色
-    document.querySelectorAll('#domainList .status-dot').forEach(dot => {
-      dot.className = 'status-dot status-fail';
-    });
-  } else {
-    offlineBadge.classList.remove('show');
-    checkDomains();
-  }
-}
-
-window.addEventListener('online', updateOnlineStatus);
-window.addEventListener('offline', updateOnlineStatus);
-
-// 页面加载后延迟检测（避免影响首屏加载）
-setTimeout(() => {
-  updateOnlineStatus();
-}, 1000);
-
-// 每 30 秒自动刷新检测
-setInterval(checkDomains, 30000);
 </script>
 </body>
 </html>
