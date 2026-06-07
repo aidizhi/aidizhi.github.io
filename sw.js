@@ -26,7 +26,6 @@ const FALLBACK_SOURCES = [
   'https://4666.eu.org/',
   'https://4545.eu.org/',
   'https://6767.eu.org/',
-  'https://bizi.eu.org/',
   'https://buqu.eu.org/',
   'https://daba.eu.org/',
   'https://nixi.eu.org/',
