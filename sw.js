@@ -14,7 +14,6 @@ const FALLBACK_DOMAINS = [
   { name: '4666.eu.org', url: 'https://4666.eu.org/' },
   { name: '4545.eu.org', url: 'https://4545.eu.org/' },
   { name: '6767.eu.org', url: 'https://6767.eu.org/' },
-  { name: 'bizi.eu.org', url: 'https://bizi.eu.org/' },
   { name: 'buqu.eu.org', url: 'https://buqu.eu.org/' },
   { name: 'daba.eu.org', url: 'https://daba.eu.org/' },
   { name: 'nixi.eu.org', url: 'https://nixi.eu.org/' },
