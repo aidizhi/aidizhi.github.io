@@ -127,11 +127,15 @@ ul a:hover{text-decoration:underline}
 <p class="tip">📧 发邮件 30 秒内自动回复最新地址</p>
 <p class="tip-s">未回复就是被拦截请更换其它邮箱发送</p>
 <ul>
-<li><a href="https://www.qima.eu.org/" target="_blank">994555.XYZ</a></li>
-<li><a href="https://www.nixi.eu.org/" target="_blank">www.994555.XYZ</a></li>
-<li><a href="https://www.6767.eu.org/" target="_blank">455555.xyz</a></li>
-<li><a href="https://www.buqu.eu.org/" target="_blank">wwww.455555.xyz</a></li>
-
+<li><a href="https://www.994555.xyz/" target="_blank">994555.XYZ</a></li>
+<li><a href="https://www.4666.eu.org/" target="_blank">4666.eu.org</a></li>
+<li><a href="https://www.4545.eu.org/" target="_blank">4545.eu.org</a></li>
+<li><a href="https://www.6767.eu.org/" target="_blank">6767.eu.org</a></li>
+<li><a href="https://www.bizi.eu.org/" target="_blank">bizi.eu.org</a></li>
+<li><a href="https://www.buqu.eu.org/" target="_blank">buqu.eu.org</a></li>
+<li><a href="https://www.daba.eu.org/" target="_blank">daba.eu.org</a></li>
+<li><a href="https://www.nixi.eu.org/" target="_blank">nixi.eu.org</a></li>
+<li><a href="https://www.qima.eu.org/" target="_blank">qima.eu.org</a></li>
 </ul>
 <div class="bt">
 <p>多收藏不同网址 📌 推荐电信联通访问</p>
@@ -153,7 +157,7 @@ window.addEventListener('beforeinstallprompt', (e) => {
   // 阻止默认的迷你信息栏
   e.preventDefault();
   deferredPrompt = e;
-  
+
   // 显示安装按钮和横幅
   installBtn.classList.add('show');
   banner.classList.add('show');
@@ -162,10 +166,10 @@ window.addEventListener('beforeinstallprompt', (e) => {
 // 安装按钮点击事件
 installBtn.addEventListener('click', async () => {
   if (!deferredPrompt) return;
-  
+
   deferredPrompt.prompt();
   const { outcome } = await deferredPrompt.userChoice;
-  
+
   if (outcome === 'accepted') {
     console.log('用户已安装 PWA');
     installBtn.classList.remove('show');
@@ -179,10 +183,10 @@ installBtn.addEventListener('click', async () => {
 // 横幅安装按钮
 bannerBtn.addEventListener('click', async () => {
   if (!deferredPrompt) return;
-  
+
   deferredPrompt.prompt();
   const { outcome } = await deferredPrompt.userChoice;
-  
+
   if (outcome === 'accepted') {
     installBtn.classList.remove('show');
     banner.classList.remove('show');
