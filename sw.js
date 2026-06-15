@@ -1,12 +1,15 @@
-// ============================================================
-// 永不失联 Service Worker v3
-// 核心机制：
-//   1. 缓存优先：优先从本地缓存加载，域名被封也能打开
-//   2. 备用域名回源：缓存丢失时，自动从备用域名获取页面
-//   3. 兜底页面：所有回源都失败时，用硬编码域名列表生成页面
-// ============================================================
+const CACHE_NAME = 'aidizhi-v4';
+const OFFLINE_URL = '/offline.html';
 
-const CACHE_NAME = 'aidizhi-v3';
+// 预缓存的静态资源
+const PRECACHE_URLS = [
+  '/',
+  '/index.html',
+  '/offline.html',
+  '/manifest.json',
+  '/icon-192x192.png',
+  '/icon-512x512.png',
+];
 
 // 硬编码的备用域名列表（即使没有任何网络资源也能生成页面）
 const FALLBACK_DOMAINS = [
@@ -30,15 +33,6 @@ const FALLBACK_SOURCES = [
   'https://daba.eu.org/',
   'https://nixi.eu.org/',
   'https://qima.eu.org/'
-];
-
-// 预缓存资源
-const urlsToCache = [
-  '/',
-  '/index.html',
-  '/manifest.json',
-  '/icon-192x192.png',
-  '/icon-512x512.png'
 ];
 
 // 生成兜底 HTML 页面（完全不依赖网络）
@@ -90,36 +84,35 @@ ${domainLinks}
 </html>`;
 }
 
-// 安装：预缓存核心资源
+// 安装事件：预缓存关键资源
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then((cache) => {
         console.log('[SW] 预缓存核心资源');
-        return cache.addAll(urlsToCache);
+        return cache.addAll(PRECACHE_URLS);
       })
       .catch((err) => {
         console.log('[SW] 预缓存失败:', err);
       })
+      .then(() => self.skipWaiting())
   );
-  self.skipWaiting();
 });
 
-// 激活：清理旧缓存
+// 激活事件：清理旧缓存
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
-        cacheNames.map((name) => {
-          if (name !== CACHE_NAME) {
+        cacheNames
+          .filter((name) => name !== CACHE_NAME)
+          .map((name) => {
             console.log('[SW] 删除旧缓存:', name);
             return caches.delete(name);
-          }
-        })
+          })
       );
-    })
+    }).then(() => self.clients.claim())
   );
-  self.clients.claim();
 });
 
 // 从备用域名回源获取页面
@@ -133,8 +126,6 @@ async function fetchFromFallback() {
       });
       if (resp) {
         console.log('[SW] 回源成功:', source);
-        // no-cors 模式返回 opaque response，无法读取内容
-        // 但说明该域名可用，返回 null 让后续逻辑处理
         return { available: source, response: null };
       }
     } catch (e) {
@@ -144,45 +135,11 @@ async function fetchFromFallback() {
   return null;
 }
 
-// 主请求拦截
-self.addEventListener('fetch', (event) => {
-  if (event.request.method !== 'GET') return;
-
-  event.respondWith(
-    caches.match(event.request)
-      .then((cachedResponse) => {
-        // 1. 缓存命中 → 直接返回（最快，不依赖网络）
-        if (cachedResponse) {
-          return cachedResponse;
-        }
-
-        // 2. 缓存未命中 → 尝试网络请求
-        return fetch(event.request)
-          .then((networkResponse) => {
-            if (networkResponse && networkResponse.status === 200) {
-              // 网络成功 → 缓存 + 返回
-              const cloned = networkResponse.clone();
-              caches.open(CACHE_NAME)
-                .then((cache) => cache.put(event.request, cloned))
-                .catch(() => {});
-              return networkResponse;
-            }
-            // 网络返回异常 → 尝试兜底
-            return getFallbackResponse();
-          })
-          .catch(() => {
-            // 3. 网络完全不通（域名被封/断网）→ 兜底
-            return getFallbackResponse();
-          });
-      })
-  );
-});
-
-// 兜底响应：生成页面
+// 生成兜底响应
 async function getFallbackResponse() {
   // 尝试从备用域名回源
   const fallback = await fetchFromFallback();
-  
+
   if (fallback && fallback.response) {
     return fallback.response;
   }
@@ -198,3 +155,87 @@ async function getFallbackResponse() {
     }
   });
 }
+
+// 判断是否为静态资源
+function isStaticAsset(pathname) {
+  return /\.(js|css|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot|webp|avif)$/i.test(pathname);
+}
+
+// 请求拦截策略：
+// - HTML 页面：Network First，离线时回退到缓存 → 兜底页面
+// - 静态资源（图片等）：Cache First
+// - 其他请求：Stale While Revalidate
+self.addEventListener('fetch', (event) => {
+  const { request } = event;
+  const url = new URL(request.url);
+
+  // 只处理 GET 请求
+  if (request.method !== 'GET') return;
+
+  // HTML 页面：Network First
+  if (request.headers.get('accept')?.includes('text/html')) {
+    event.respondWith(
+      fetch(request)
+        .then((response) => {
+          // 成功获取后缓存一份
+          const clone = response.clone();
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(request, clone);
+          });
+          return response;
+        })
+        .catch(() => {
+          // 离线时从缓存获取
+          return caches.match(request).then((cached) => {
+            return cached || caches.match(OFFLINE_URL).then((offlineCached) => {
+              return offlineCached || getFallbackResponse();
+            });
+          });
+        })
+    );
+    return;
+  }
+
+  // 静态资源：Cache First
+  if (isStaticAsset(url.pathname)) {
+    event.respondWith(
+      caches.match(request).then((cached) => {
+        if (cached) return cached;
+        return fetch(request).then((response) => {
+          if (response.ok) {
+            const clone = response.clone();
+            caches.open(CACHE_NAME).then((cache) => {
+              cache.put(request, clone);
+            });
+          }
+          return response;
+        }).catch(() => {
+          // 图片离线回退
+          if (request.destination === 'image') {
+            return new Response(
+              '<svg xmlns="http://www.w3.org/2000/svg" width="1" height="1"/>',
+              { headers: { 'Content-Type': 'image/svg+xml' } }
+            );
+          }
+        });
+      })
+    );
+    return;
+  }
+
+  // 其他请求：Stale While Revalidate
+  event.respondWith(
+    caches.match(request).then((cached) => {
+      const fetchPromise = fetch(request).then((response) => {
+        if (response.ok) {
+          const clone = response.clone();
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(request, clone);
+          });
+        }
+        return response;
+      }).catch(() => cached);
+      return cached || fetchPromise;
+    })
+  );
+});
