@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Allow: /manifest.json
+Disallow: /offline.html
+
+Sitemap: /sitemap.xml
