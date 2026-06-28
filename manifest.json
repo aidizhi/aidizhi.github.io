@@ -1,22 +1,21 @@
 {
   "name": "永不失联 - 最新地址永久入口",
   "short_name": "永不失联",
-  "description": "永不失联最新地址永久入口，安装到桌面随时访问，离线也能打开",
-  "start_url": "/?source=pwa",
+  "description": "永不失联最新地址永久入口，收藏后随时访问，离线也能打开",
+  "start_url": "/",
   "scope": "/",
   "display": "standalone",
-  "display_override": ["standalone", "minimal-ui", "browser"],
   "background_color": "#ffffff",
   "theme_color": "#000000",
   "orientation": "portrait",
   "lang": "zh-CN",
   "dir": "ltr",
-  "categories": ["utilities", "productivity"],
+  "categories": [
+    "utilities",
+    "productivity"
+  ],
   "prefer_related_applications": false,
   "id": "/",
-  "launch_handler": {
-    "client_mode": ["navigate-existing", "auto"]
-  },
   "icons": [
     {
       "src": "/icon-192x192.png",
@@ -64,32 +63,24 @@
       "short_name": "地址",
       "description": "查看最新可用地址",
       "url": "/?shortcut=address",
-      "icons": [{ "src": "/icon-192x192.png", "sizes": "192x192" }]
+      "icons": [
+        {
+          "src": "/icon-192x192.png",
+          "sizes": "192x192"
+        }
+      ]
     },
     {
       "name": "离线页面",
       "short_name": "离线",
       "description": "查看离线状态",
       "url": "/offline.html",
-      "icons": [{ "src": "/icon-192x192.png", "sizes": "192x192" }]
+      "icons": [
+        {
+          "src": "/icon-192x192.png",
+          "sizes": "192x192"
+        }
+      ]
     }
-  ],
-  "share_target": {
-    "action": "/",
-    "method": "GET",
-    "params": {
-      "title": "title",
-      "text": "text",
-      "url": "url"
-    }
-  },
-  "protocol_handlers": [
-    {
-      "protocol": "web+aidizhi",
-      "url": "/?protocol=%s"
-    }
-  ],
-  "edge_side_panel": {
-    "preferred_width": 400
-  }
+  ]
 }

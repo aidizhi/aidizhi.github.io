@@ -21,7 +21,7 @@
 <!-- 通用 PWA -->
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="application-name" content="永不失联">
-<meta name="description" content="永不失联最新地址永久入口，安装到桌面随时访问，离线也能打开">
+<meta name="description" content="永不失联最新地址永久入口，收藏后随时访问，离线也能打开">
 <meta name="keywords" content="永不失联,地址发布,最新地址">
 
 <!-- 安全与隐私 -->
@@ -31,14 +31,14 @@
 
 <!-- Open Graph -->
 <meta property="og:title" content="永不失联 - 最新地址永久入口">
-<meta property="og:description" content="永不失联最新地址永久入口，安装到桌面随时访问">
+<meta property="og:description" content="永不失联最新地址永久入口，收藏后随时访问">
 <meta property="og:type" content="website">
 <meta property="og:image" content="/icon-512x512.png">
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="永不失联 - 最新地址永久入口">
-<meta name="twitter:description" content="永不失联最新地址永久入口，安装到桌面随时访问">
+<meta name="twitter:description" content="永不失联最新地址永久入口，收藏后随时访问">
 <meta name="twitter:image" content="/icon-512x512.png">
 
 <!-- 图标 -->
@@ -199,85 +199,6 @@ body {
 }
 .bt p { margin-bottom: 6px }
 
-/* ===== PWA 安装按钮 ===== */
-.pwa-install-btn {
-  display: none;
-  position: fixed;
-  top: 12px;
-  right: 12px;
-  z-index: 9999;
-  background: var(--accent);
-  color: #fff;
-  border: none;
-  border-radius: 24px;
-  padding: 10px 18px;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  box-shadow: 0 2px 12px rgba(255,153,0,.35);
-  transition: all var(--transition);
-  letter-spacing: 1px;
-  backdrop-filter: blur(8px);
-}
-.pwa-install-btn:hover {
-  background: var(--accent-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 16px rgba(255,153,0,.45);
-}
-.pwa-install-btn:active { transform: translateY(0) }
-.pwa-install-btn.show { display: inline-block }
-
-/* ===== PWA 安装横幅 ===== */
-.pwa-banner {
-  display: none;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: var(--fg);
-  color: var(--bg);
-  padding: 14px 18px;
-  z-index: 9998;
-  align-items: center;
-  justify-content: space-between;
-  gap: 14px;
-  animation: slideUp .4s cubic-bezier(.4,0,.2,1);
-}
-@keyframes slideUp {
-  from { transform: translateY(100%); opacity: 0 }
-  to { transform: translateY(0); opacity: 1 }
-}
-.pwa-banner.show { display: flex }
-.pwa-banner-text {
-  font-size: 14px;
-  flex: 1;
-  text-align: left;
-  font-weight: 500;
-}
-.pwa-banner-btn {
-  background: var(--accent);
-  color: #fff;
-  border: none;
-  border-radius: 20px;
-  padding: 8px 18px;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: background var(--transition);
-}
-.pwa-banner-btn:hover { background: var(--accent-hover) }
-.pwa-banner-close {
-  background: none;
-  border: none;
-  color: var(--muted);
-  font-size: 20px;
-  cursor: pointer;
-  padding: 0 6px;
-  transition: color var(--transition);
-}
-.pwa-banner-close:hover { color: var(--bg) }
-
 /* ===== 网络状态指示器 ===== */
 .net-status {
   position: fixed;
@@ -340,7 +261,6 @@ body {
   .h2 { font-size: 15px }
   .c { padding: 20px 16px }
   .link-card { padding: 12px 16px; font-size: 14px }
-  .pwa-install-btn { padding: 8px 14px; font-size: 12px }
 }
 
 /* 减少动画偏好 */
@@ -356,18 +276,6 @@ body {
 
 <!-- 网络状态提示 -->
 <div id="netStatus" class="net-status">网络已断开</div>
-
-<!-- PWA 安装按钮 -->
-<button id="pwaInstallBtn" class="pwa-install-btn" title="安装到桌面" aria-label="安装应用到桌面">
-  <span style="margin-right:4px">&#128241;</span>安装应用
-</button>
-
-<!-- PWA 安装提示横幅 -->
-<div id="pwaBanner" class="pwa-banner" role="dialog" aria-label="安装应用提示">
-  <span class="pwa-banner-text">&#128241; 添加到主屏幕，永不失联</span>
-  <button id="pwaBannerBtn" class="pwa-banner-btn">安装</button>
-  <button id="pwaBannerClose" class="pwa-banner-close" aria-label="关闭">&times;</button>
-</div>
 
 <!-- 更新提示 -->
 <div id="updateToast" class="update-toast">
@@ -391,7 +299,7 @@ body {
     <p>多收藏不同网址 &#128204; 推荐电信联通访问</p>
     <p>移动网 / 国产浏览器会拦截网址</p>
     <p>推荐截图 &#128247; 保存本页不迷路</p>
-    <p>&#128241; 安装到桌面，域名被封也能打开此页</p>
+    <p>&#128241; 建议收藏或截图保存本页</p>
   </div>
 </div>
 
@@ -426,53 +334,6 @@ if ('serviceWorker' in navigator) {
       }
     });
   });
-}
-
-// ---------- 2. PWA 安装逻辑 ----------
-let deferredPrompt = null;
-const installBtn = document.getElementById('pwaInstallBtn');
-const banner = document.getElementById('pwaBanner');
-const bannerBtn = document.getElementById('pwaBannerBtn');
-const bannerClose = document.getElementById('pwaBannerClose');
-
-window.addEventListener('beforeinstallprompt', (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
-  installBtn.classList.add('show');
-  banner.classList.add('show');
-  console.log('[PWA] 安装提示就绪');
-});
-
-async function triggerInstall() {
-  if (!deferredPrompt) return;
-  deferredPrompt.prompt();
-  const { outcome } = await deferredPrompt.userChoice;
-  if (outcome === 'accepted') {
-    installBtn.classList.remove('show');
-    banner.classList.remove('show');
-    console.log('[PWA] 用户接受安装');
-  } else {
-    console.log('[PWA] 用户拒绝安装');
-  }
-  deferredPrompt = null;
-}
-
-installBtn.addEventListener('click', triggerInstall);
-bannerBtn.addEventListener('click', triggerInstall);
-bannerClose.addEventListener('click', () => banner.classList.remove('show'));
-
-window.addEventListener('appinstalled', () => {
-  installBtn.classList.remove('show');
-  banner.classList.remove('show');
-  deferredPrompt = null;
-  console.log('[PWA] 应用已安装');
-});
-
-// 已安装则隐藏安装按钮
-if (window.navigator.standalone === true || window.matchMedia('(display-mode: standalone)').matches) {
-  installBtn.classList.remove('show');
-  banner.classList.remove('show');
-  document.body.classList.add('standalone-mode');
 }
 
 // ---------- 3. 网络状态监测 ----------
