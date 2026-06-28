@@ -1,2 +1,6 @@
 User-agent: *
-Disallow: /
+Disallow: /r*.html
+Disallow: /sw.js
+Disallow: /manifest.json
+
+Sitemap: /sitemap.xml

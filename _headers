@@ -1,8 +1,12 @@
 /*
   X-Content-Type-Options: nosniff
   Referrer-Policy: no-referrer
-  X-Robots-Tag: noindex, nofollow, noarchive, nosnippet, noimageindex
   Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
+  Cache-Control: public, max-age=0, s-maxage=300, stale-while-revalidate=3600
+
+/index.html
+  X-Robots-Tag: index, follow, noarchive
+  Referrer-Policy: no-referrer
   Cache-Control: public, max-age=0, s-maxage=300, stale-while-revalidate=3600
 
 /r*.html
@@ -13,11 +17,13 @@
 /manifest.json
   Content-Type: application/manifest+json; charset=utf-8
   Cache-Control: public, max-age=300, must-revalidate
+  X-Robots-Tag: noindex
 
 /sw.js
   Content-Type: application/javascript; charset=utf-8
   Service-Worker-Allowed: /
   Cache-Control: no-cache, no-store, must-revalidate
+  X-Robots-Tag: noindex
 
 /*.png
   Content-Type: image/png
@@ -30,3 +36,4 @@
 /offline.html
   Content-Type: text/html; charset=utf-8
   Cache-Control: public, max-age=31536000, immutable
+  X-Robots-Tag: noindex
