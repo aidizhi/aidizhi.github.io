@@ -1,0 +1,8 @@
+User-agent: *
+Disallow: /r*.html
+Disallow: /go.html
+Disallow: /pwa.html
+Disallow: /sw.js
+Disallow: /manifest.json
+
+Sitemap: /sitemap.xml
