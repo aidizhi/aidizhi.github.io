@@ -6,49 +6,83 @@
 <meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex">
 <meta name="referrer" content="no-referrer">
 <meta name="format-detection" content="telephone=no,email=no,address=no">
-<meta name="theme-color" content="#ec4899">
+<meta name="theme-color" content="#7c3aed">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none';">
 <title>永不失联 · 地址入口</title>
 <style>
+:root{color-scheme:light;--bg:#10051f;--card:rgba(255,255,255,.92);--text:#111827;--muted:#6b7280;--line:rgba(124,58,237,.12);--brand:#7c3aed;--pink:#ec4899;--orange:#f97316;--green:#10b981}
 *{box-sizing:border-box;margin:0;padding:0}
-html{-webkit-text-size-adjust:100%}
-body{min-height:100vh;background:#f9fafb;color:#1f2937;font:15px/1.65 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;display:flex;align-items:center;justify-content:center;padding:18px}
-.wrap{width:min(430px,100%)}
-.top{text-align:center;margin-bottom:18px}
-.brand{display:inline-flex;align-items:center;justify-content:center;width:54px;height:54px;border-radius:18px;background:linear-gradient(135deg,#ec4899,#be185d);color:#fff;font-size:24px;font-weight:900;box-shadow:0 10px 24px rgba(190,24,93,.18);margin-bottom:10px}
-.logo{font-size:22px;font-weight:800;letter-spacing:.06em;color:#1f2937}
-.sub{color:#6b7280;font-size:13px;margin-top:3px}
-.box{background:rgba(255,255,255,.96);border:1px solid #f3f4f6;border-radius:22px;padding:16px;box-shadow:0 12px 32px rgba(15,23,42,.06)}
-.tip{font-size:13px;color:#6b7280;margin:14px 2px 10px}
-.mail{display:block;text-decoration:none;color:#be185d;background:#fdf2f8;border:1px solid #fce7f3;border-radius:16px;padding:13px 14px;margin-bottom:4px;font-size:17px;font-weight:800}
-.mail small{display:block;color:#9d174d;font-size:12px;font-weight:500;margin-top:2px;opacity:.78}
-.grid{display:grid;gap:9px}
-.link{display:flex;align-items:center;justify-content:space-between;text-decoration:none;color:#374151;background:#fff;border:1px solid #f3f4f6;border-radius:16px;padding:13px 14px;font-weight:650;transition:.18s ease;min-height:46px}
-.link span{color:#be185d;background:#fdf2f8;border-radius:999px;padding:2px 8px;font-size:12px;font-weight:600}
-.link:active{transform:scale(.99);background:#fdf2f8}
-.foot{color:#6b7280;font-size:12px;margin-top:14px;line-height:1.7;text-align:center}
-@media (hover:hover){.link:hover,.mail:hover{border-color:#f9a8d4;box-shadow:0 8px 20px rgba(190,24,93,.08)}}
-@media (prefers-color-scheme:dark){body{background:#111827;color:#f9fafb}.logo{color:#f9fafb}.box{background:rgba(31,41,55,.92);border-color:#374151}.sub,.tip,.foot{color:#9ca3af}.link{background:#111827;color:#f3f4f6;border-color:#374151}.mail{background:#3b1228;border-color:#831843;color:#f9a8d4}.mail small{color:#f9a8d4}.link:active{background:#1f2937}}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{min-height:100svh;color:var(--text);font:15px/1.65 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;display:flex;align-items:center;justify-content:center;padding:18px;padding-left:max(18px,env(safe-area-inset-left));padding-right:max(18px,env(safe-area-inset-right));background:radial-gradient(circle at 20% 0%,rgba(236,72,153,.45),transparent 34%),radial-gradient(circle at 95% 12%,rgba(59,130,246,.42),transparent 36%),linear-gradient(160deg,#160824 0%,#25104a 44%,#0f172a 100%);overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;background:linear-gradient(rgba(255,255,255,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.055) 1px,transparent 1px);background-size:34px 34px;mask-image:linear-gradient(to bottom,rgba(0,0,0,.72),transparent);pointer-events:none}
+.wrap{position:relative;width:min(450px,100%);padding:10px 0 18px}
+.hero{color:#fff;margin:0 4px 18px}
+.badge{display:inline-flex;align-items:center;gap:7px;height:31px;padding:0 12px;border:1px solid rgba(255,255,255,.18);border-radius:999px;background:rgba(255,255,255,.1);backdrop-filter:blur(12px);font-size:12px;color:rgba(255,255,255,.86)}
+.badge i{width:7px;height:7px;border-radius:50%;background:#34d399;box-shadow:0 0 0 5px rgba(52,211,153,.13)}
+h1{font-size:38px;line-height:1.08;letter-spacing:-.06em;margin:18px 0 10px}
+.hero p{max-width:340px;color:rgba(255,255,255,.72);font-size:14px}
+.card{position:relative;overflow:hidden;background:var(--card);border:1px solid rgba(255,255,255,.72);border-radius:30px;padding:18px;box-shadow:0 30px 70px rgba(2,6,23,.34),inset 0 1px 0 rgba(255,255,255,.85);backdrop-filter:blur(22px)}
+.card:before{content:"";position:absolute;inset:0 0 auto;height:115px;background:linear-gradient(135deg,rgba(124,58,237,.16),rgba(236,72,153,.12),rgba(249,115,22,.1));pointer-events:none}
+.mail{position:relative;display:flex;align-items:center;gap:12px;text-decoration:none;color:#fff;border-radius:24px;padding:16px 15px;background:linear-gradient(135deg,var(--brand),var(--pink) 62%,var(--orange));box-shadow:0 18px 36px rgba(124,58,237,.28)}
+.mail:active,.entry:active,.copy:active{transform:scale(.985)}
+.mailIcon{display:grid;place-items:center;flex:0 0 44px;height:44px;border-radius:16px;background:rgba(255,255,255,.18);font-size:22px;font-weight:900}
+.mail strong{display:block;font-size:18px;letter-spacing:.01em}
+.mail small{display:block;color:rgba(255,255,255,.78);font-size:12px;margin-top:2px}
+.sectionTitle{position:relative;display:flex;align-items:center;justify-content:space-between;margin:18px 2px 11px;color:#111827;font-weight:850}
+.sectionTitle span{color:var(--muted);font-size:12px;font-weight:600}
+.grid{display:grid;gap:10px}
+.entry{position:relative;display:flex;align-items:center;justify-content:space-between;text-decoration:none;color:#111827;background:#fff;border:1px solid var(--line);border-radius:20px;padding:14px 14px 14px 15px;min-height:64px;box-shadow:0 10px 22px rgba(15,23,42,.055);transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}
+.entry b{display:block;font-size:15px;letter-spacing:.01em}
+.entry small{display:block;color:var(--muted);font-size:12px;font-weight:500;margin-top:1px}
+.go{display:inline-flex;align-items:center;justify-content:center;min-width:54px;height:34px;border-radius:999px;background:#f3e8ff;color:#6d28d9;font-size:13px;font-weight:850}
+.entry:nth-child(2) .go{background:#ffe4e6;color:#be123c}.entry:nth-child(3) .go{background:#dcfce7;color:#15803d}.entry:nth-child(4) .go{background:#ffedd5;color:#c2410c}
+.copy{width:100%;border:0;margin-top:12px;border-radius:18px;padding:13px 14px;background:#111827;color:#fff;font:inherit;font-weight:850}
+.notice{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}
+.note{border-radius:18px;background:#f8fafc;border:1px solid #eef2ff;padding:11px;color:#64748b;font-size:12px}
+.note b{display:block;color:#334155;font-size:13px;margin-bottom:1px}
+.foot{color:rgba(255,255,255,.68);font-size:12px;margin:14px 8px 0;text-align:center}
+@media (hover:hover){.entry:hover,.mail:hover{transform:translateY(-2px);box-shadow:0 18px 30px rgba(15,23,42,.1)}}
+@media (max-width:360px){body{padding:12px}.card{border-radius:24px;padding:14px}h1{font-size:33px}.notice{grid-template-columns:1fr}.mail strong{font-size:16px}}
+@media (prefers-color-scheme:dark){:root{color-scheme:dark}.card{background:rgba(15,23,42,.86);border-color:rgba(255,255,255,.14)}.sectionTitle,.entry{color:#f8fafc}.entry{background:rgba(15,23,42,.9);border-color:rgba(255,255,255,.09)}.entry small{color:#94a3b8}.notice .note{background:rgba(15,23,42,.76);border-color:rgba(255,255,255,.08);color:#94a3b8}.note b{color:#e2e8f0}.copy{background:#fff;color:#111827}}
 </style>
 </head>
 <body>
 <main class="wrap">
-  <div class="top">
-    <div class="brand">永</div>
-    <div class="logo">永不失联</div>
-    <p class="sub">收藏本页，防止迷路</p>
-  </div>
-  <section class="box">
-    <a class="mail" href="mailto:4@455555.XYZ" rel="nofollow">4@455555.XYZ<small>发邮件 30 秒内自动回复最新地址</small></a>
-    <p class="tip">选择任一入口进入</p>
-    <div class="grid">
-      <a class="link" href="/r1.html" rel="nofollow">www.455333.xyz <span>进入</span></a>
-      <a class="link" href="/r2.html" rel="nofollow">www.466333.xyz <span>进入</span></a>
-      <a class="link" href="/r3.html" rel="nofollow">www.477333.xyz <span>进入</span></a>
-      <a class="link" href="/r4.html" rel="nofollow">www.488333.xyz <span>进入</span></a>
-    </div>
-    <div class="foot">如无法打开，请复制到 Chrome / Edge / Safari 访问。</div>
+  <section class="hero" aria-label="页面说明">
+    <div class="badge"><i></i>地址实时可用 · 建议收藏</div>
+    <h1>永不失联<br>最新地址入口</h1>
+    <p>移动端优先设计，打开后选择任一线路进入。若在微信、QQ、抖音等 App 内无法跳转，请复制到系统浏览器访问。</p>
   </section>
+  <section class="card" aria-label="最新地址入口">
+    <a class="mail" href="mailto:4@455555.XYZ" rel="nofollow">
+      <span class="mailIcon">@</span>
+      <span><strong>4@455555.XYZ</strong><small>发邮件 30 秒内自动回复最新地址</small></span>
+    </a>
+    <div class="sectionTitle">选择可用线路 <span>推荐 Chrome / Safari</span></div>
+    <div class="grid">
+      <a class="entry" href="/r1.html" rel="nofollow"><span><b>线路一</b><small>www.455333.xyz</small></span><span class="go">进入</span></a>
+      <a class="entry" href="/r2.html" rel="nofollow"><span><b>线路二</b><small>www.466333.xyz</small></span><span class="go">进入</span></a>
+      <a class="entry" href="/r3.html" rel="nofollow"><span><b>线路三</b><small>www.477333.xyz</small></span><span class="go">进入</span></a>
+      <a class="entry" href="/r4.html" rel="nofollow"><span><b>线路四</b><small>www.488333.xyz</small></span><span class="go">进入</span></a>
+    </div>
+    <button class="copy" id="copyBtn" type="button">复制当前页面地址</button>
+    <div class="notice">
+      <div class="note"><b>打不开怎么办</b>复制本页链接到 Chrome / Edge / Safari。</div>
+      <div class="note"><b>防止迷路</b>添加到主屏幕或收藏本页。</div>
+    </div>
+  </section>
+  <p class="foot">本页已设置禁止索引，二级页会拦截常见 App 内置浏览器与爬虫访问。</p>
 </main>
+<script>
+(function(){
+  var btn=document.getElementById('copyBtn');
+  btn.onclick=function(){
+    var text=location.href.split('#')[0];
+    function ok(){btn.textContent='已复制，去浏览器粘贴打开';setTimeout(function(){btn.textContent='复制当前页面地址'},2200)}
+    function fallback(){var i=document.createElement('input');i.value=text;document.body.appendChild(i);i.select();document.execCommand('copy');document.body.removeChild(i);ok()}
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(ok).catch(fallback)}else fallback();
+  };
+})();
+</script>
 </body>
 </html>

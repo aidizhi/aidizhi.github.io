@@ -5,40 +5,78 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex">
 <meta name="referrer" content="no-referrer">
+<meta name="format-detection" content="telephone=no,email=no,address=no">
+<meta name="theme-color" content="#020617">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none';">
 <title>正在进入</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0}body{min-height:100vh;background:#050505;color:#fff;display:flex;align-items:center;justify-content:center;padding:22px;font:16px/1.65 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.box{width:min(460px,100%);text-align:center;background:linear-gradient(180deg,#171717,#0d0d0d);border:1px solid #2b2b2b;border-radius:22px;padding:22px;box-shadow:0 18px 55px rgba(0,0,0,.45)}h1{font-size:20px;margin-bottom:8px}.s{color:#999;font-size:13px;margin-top:8px}.guide{display:none;text-align:left}.guide h1{text-align:center}.guide p{color:#cfcfcf;font-size:14px;margin:8px 0}.steps{margin:16px 0;display:grid;gap:10px}.step{background:#111;border:1px solid #282828;border-radius:14px;padding:12px;font-size:14px}.step b{color:#ffb020}.btns{display:grid;gap:10px;margin-top:14px}.btn{border:0;border-radius:14px;padding:13px 14px;font-weight:800;color:#fff;background:#f59e0b;text-decoration:none;text-align:center;font-size:14px}.btn.secondary{background:#1f2937}.btn.green{background:#16a34a}.small{text-align:center;color:#777;font-size:12px;margin-top:12px}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{min-height:100svh;background:radial-gradient(circle at 18% 0%,rgba(124,58,237,.28),transparent 34%),radial-gradient(circle at 100% 18%,rgba(236,72,153,.2),transparent 32%),#020617;color:#fff;display:flex;align-items:center;justify-content:center;padding:20px;font:15px/1.7 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.box{width:min(440px,100%);text-align:center;background:linear-gradient(180deg,rgba(15,23,42,.94),rgba(2,6,23,.96));border:1px solid rgba(148,163,184,.18);border-radius:26px;padding:24px;box-shadow:0 28px 70px rgba(0,0,0,.45)}
+.loader{width:48px;height:48px;border-radius:50%;border:4px solid rgba(255,255,255,.12);border-top-color:#a78bfa;margin:0 auto 15px;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+h1{font-size:21px;line-height:1.35;margin-bottom:8px;letter-spacing:-.02em}
+.s,.desc{color:#94a3b8;font-size:13px}
+.guide{display:none;text-align:left}
+.guide h1,.blocked h1{text-align:center}
+.desc{margin:9px 0 16px;text-align:center}
+.steps{display:grid;gap:10px;margin:16px 0}
+.step{display:flex;gap:10px;align-items:flex-start;background:rgba(15,23,42,.92);border:1px solid rgba(148,163,184,.14);border-radius:16px;padding:12px;color:#cbd5e1;font-size:14px}
+.num{display:inline-grid;place-items:center;flex:0 0 24px;height:24px;border-radius:50%;background:#f59e0b;color:#111827;font-weight:900;font-size:12px}
+.btns{display:grid;gap:10px;margin-top:14px}
+.btn{appearance:none;border:0;border-radius:16px;padding:13px 14px;font-weight:850;color:#fff;background:linear-gradient(135deg,#7c3aed,#ec4899);text-decoration:none;text-align:center;font-size:14px}
+.btn.secondary{background:#1e293b;color:#e2e8f0}
+.small{text-align:center;color:#64748b;font-size:12px;margin-top:12px}
+.blocked{display:none}
+.ghost{display:inline-flex;align-items:center;justify-content:center;width:54px;height:54px;border-radius:18px;background:rgba(255,255,255,.07);margin:0 auto 13px;color:#cbd5e1;font-weight:900}
 </style>
 </head>
 <body>
-<div id="loading" class="box"><h1>正在选择可用线路</h1><div class="s">请稍候...</div></div>
+<div id="loading" class="box">
+  <div class="loader" aria-hidden="true"></div>
+  <h1>正在选择可用线路</h1>
+  <div class="s">请稍候，系统正在为你分配入口...</div>
+</div>
 <div id="guide" class="box guide">
   <h1 id="guideTitle">请使用系统浏览器打开</h1>
-  <p id="guideDesc">当前 App 内置浏览器可能限制播放或拦截跳转，建议复制链接到 Chrome 或 Edge 打开。</p>
+  <p id="guideDesc" class="desc">当前 App 内置浏览器可能限制访问，建议复制首页地址到 Chrome / Edge / Safari 打开。</p>
   <div class="steps">
-    <div class="step"><b>1.</b> 点击下方复制可用地址</div>
-    <div class="step"><b>2.</b> 打开 Chrome / Edge / Safari 粘贴访问</div>
-    <div class="step"><b>3.</b> 进入网站后可选择“添加到主屏幕”，像 PWA 一样使用</div>
+    <div class="step"><span class="num">1</span><span>点击下方按钮复制首页地址。</span></div>
+    <div class="step"><span class="num">2</span><span>打开 Chrome / Edge / Safari 后粘贴访问。</span></div>
+    <div class="step"><span class="num">3</span><span>正常打开后建议收藏或添加到主屏幕。</span></div>
   </div>
   <div class="btns">
-    <button id="copyBtn" class="btn">复制可用地址</button>
-    <a id="chromeBtn" class="btn green" href="#" rel="nofollow">尝试用 Chrome 打开</a>
-    <a id="edgeBtn" class="btn secondary" href="#" rel="nofollow">尝试用 Edge 打开</a>
-    <a id="continueBtn" class="btn secondary" href="#" rel="nofollow">仍然继续访问</a>
+    <button id="copyBtn" class="btn" type="button">复制首页地址</button>
+    <a id="chromeBtn" class="btn secondary" href="#" rel="nofollow">尝试唤起 Chrome</a>
+    <a id="edgeBtn" class="btn secondary" href="#" rel="nofollow">尝试唤起 Edge</a>
   </div>
-  <div class="small">如果按钮无效，请手动打开浏览器后粘贴地址。</div>
+  <div class="small">如果按钮无效，请手动复制地址后到系统浏览器打开。</div>
+</div>
+<div id="blocked" class="box blocked">
+  <div class="ghost">404</div>
+  <h1>页面不存在</h1>
+  <p class="desc">请检查地址是否正确。</p>
 </div>
 <script>
 (function(){
   var ua=navigator.userAgent||'';
-  if(/bot|spider|crawl|slurp|bingpreview|facebookexternalhit|twitterbot|telegrambot|whatsapp|preview|headless|curl|wget|python|scrapy|httpclient|monitor|scanner|scan/i.test(ua)){
-    document.body.innerHTML='<div class="box"><h1>页面不存在</h1></div>';
+  var low=ua.toLowerCase();
+  var appRules=[
+    ['微信',/micromessenger|wechat/i],['QQ',/\bqq\/(?!.*qqbrowser)|mqqbrowser/i],['抖音',/douyin|aweme|tiktok|snssdk|bytedance/i],
+    ['快手',/kwai|kuaishou/i],['微博',/weibo/i],['支付宝',/alipayclient/i],['钉钉',/dingtalk/i],
+    ['百度',/baiduboxapp|baidubrowser/i],['小红书',/xiaohongshu|xhs/i],['淘宝',/taobao|tmall/i],
+    ['UC',/ucbrowser/i],['今日头条',/newsarticle/i]
+  ];
+  var botRule=/bot|spider|crawl|slurp|crawler|preview|headless|phantom|selenium|puppeteer|playwright|scrapy|curl|wget|python|java|go-http|httpclient|axios|okhttp|postman|insomnia|monitor|scanner|scan|bingpreview|facebookexternalhit|twitterbot|telegrambot|whatsapp|discordbot|linebot|baiduspider|sogou|360spider|bytespider|yisouspider|duckduckbot|semrush|ahrefs|mj12bot|petalbot/i;
+  var matchedApp='';
+  for(var i=0;i<appRules.length;i++){if(appRules[i][1].test(ua)){matchedApp=appRules[i][0];break;}}
+  if(botRule.test(ua)||navigator.webdriver||!navigator.languages||navigator.languages.length===0||/headlesschrome/i.test(ua)||low.length<20){
+    showBlocked();
     return;
   }
-  var isInApp=/micromessenger|wechat|\bqq\/(?!.*qqbrowser)|douyin|aweme|tiktok|kwai|kuaishou|snssdk|bytedance|weibo|alipayclient|dingtalk|baiduboxapp/i.test(ua);
-  if(isInApp){
-    showGuide('');
+  if(matchedApp){
+    showGuide(matchedApp);
     return;
   }
   function dec(a,b,c){return atob(a+b+c)}
@@ -51,33 +89,28 @@
     ['aHR0cHM6Ly93','d3cuZGFiYS5l','dS5vcmcv'],['aHR0cHM6Ly93','d3cubml4aS5l','dS5vcmcv'],
     ['aHR0cHM6Ly93','d3cucWltYS5l','dS5vcmcv']
   ];
-  var hasCrypto=window.crypto&&window.crypto.getRandomValues;
-  var n=hasCrypto?window.crypto.getRandomValues(new Uint32Array(1))[0]:Math.floor(Math.random()*4294967296);
-  var item=pool[(n+0)%pool.length];
-  var target=dec(item[0],item[1],item[2]);
-  location.replace(target);
-
-  function showGuide(target){
-    var app='App';
-    if(/micromessenger|wechat/i.test(ua))app='微信';
-    else if(/\bqq\//i.test(ua)&&!/qqbrowser/i.test(ua))app='QQ';
-    else if(/douyin|aweme|tiktok|snssdk|bytedance/i.test(ua))app='抖音';
-    else if(/kwai|kuaishou/i.test(ua))app='快手';
-    else if(/weibo/i.test(ua))app='微博';
-    else if(/alipayclient/i.test(ua))app='支付宝';
+  var seed=Date.now()+Math.floor(Math.random()*9999);
+  if(window.crypto&&window.crypto.getRandomValues){seed=window.crypto.getRandomValues(new Uint32Array(1))[0];}
+  var item=pool[(seed+0)%pool.length];
+  setTimeout(function(){location.replace(dec(item[0],item[1],item[2]));},360);
+  function showGuide(app){
     document.getElementById('loading').style.display='none';
     document.getElementById('guide').style.display='block';
     document.getElementById('guideTitle').textContent='请不要在 '+app+' 内直接打开';
-    document.getElementById('guideDesc').textContent=app+' 内置浏览器可能限制播放或拦截跳转，建议回到首页复制入口到 Chrome / Edge / Safari 打开。';
+    document.getElementById('guideDesc').textContent=app+' 内置浏览器可能拦截跳转或触发安全预览，请复制首页地址到系统浏览器访问。';
+    var home=location.origin+'/';
+    document.getElementById('chromeBtn').href='googlechrome://navigate?url='+encodeURIComponent(home);
+    document.getElementById('edgeBtn').href='microsoft-edge:'+home;
     document.getElementById('copyBtn').onclick=function(){
-      var u=location.origin+'/';
-      function ok(){document.getElementById('copyBtn').textContent='已复制首页地址';document.getElementById('copyBtn').style.background='#16a34a'}
-      if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(u).then(ok).catch(fallback)}else fallback();
-      function fallback(){var i=document.createElement('input');i.value=u;document.body.appendChild(i);i.select();document.execCommand('copy');document.body.removeChild(i);ok()}
+      function ok(){document.getElementById('copyBtn').textContent='已复制首页地址';}
+      function fallback(){var input=document.createElement('input');input.value=home;document.body.appendChild(input);input.select();document.execCommand('copy');document.body.removeChild(input);ok();}
+      if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(home).then(ok).catch(fallback);}else{fallback();}
     };
-    document.getElementById('continueBtn').href='/';
-    document.getElementById('chromeBtn').href='googlechrome://navigate?url='+encodeURIComponent(location.origin+'/');
-    document.getElementById('edgeBtn').href='microsoft-edge:'+location.origin+'/';
+  }
+  function showBlocked(){
+    document.title='404';
+    document.getElementById('loading').style.display='none';
+    document.getElementById('blocked').style.display='block';
   }
 })();
 </script>
