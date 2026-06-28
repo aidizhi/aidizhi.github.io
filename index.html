@@ -7,118 +7,84 @@
 <meta name="referrer" content="no-referrer">
 <meta name="format-detection" content="telephone=no,email=no,address=no">
 <meta name="theme-color" content="#7c3aed">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none';">
 <title>永不失联 · 地址入口</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <style>
-:root{color-scheme:light;--card:rgba(255,255,255,.92);--text:#111827;--muted:#6b7280;--line:rgba(124,58,237,.12);--brand:#7c3aed;--pink:#ec4899;--orange:#f97316}
+:root{color-scheme:light;--card:rgba(255,255,255,.94);--text:#111827;--muted:#6b7280;--line:rgba(124,58,237,.12);--brand:#7c3aed;--pink:#ec4899;--orange:#f97316;--green:#10b981}
 *{box-sizing:border-box;margin:0;padding:0}
-html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+html{-webkit-text-size-adjust:100%}
 body{min-height:100svh;color:var(--text);font:15px/1.65 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;display:flex;align-items:center;justify-content:center;padding:18px;padding-left:max(18px,env(safe-area-inset-left));padding-right:max(18px,env(safe-area-inset-right));background:radial-gradient(circle at 20% 0%,rgba(236,72,153,.45),transparent 34%),radial-gradient(circle at 95% 12%,rgba(59,130,246,.42),transparent 36%),linear-gradient(160deg,#160824 0%,#25104a 44%,#0f172a 100%);overflow-x:hidden}
-body:before{content:"";position:fixed;inset:0;background:linear-gradient(rgba(255,255,255,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.055) 1px,transparent 1px);background-size:34px 34px;mask-image:linear-gradient(to bottom,rgba(0,0,0,.72),transparent);pointer-events:none}
-.wrap{position:relative;width:min(440px,100%);padding:10px 0 18px}
+body::before{content:"";position:fixed;inset:0;background:linear-gradient(rgba(255,255,255,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.055) 1px,transparent 1px);background-size:34px 34px;mask-image:linear-gradient(to bottom,rgba(0,0,0,.72),transparent);pointer-events:none}
+.w{position:relative;width:min(440px,100%);padding:10px 0 18px}
 .hero{color:#fff;margin:0 4px 18px}
-.badge{display:inline-flex;align-items:center;gap:7px;height:31px;padding:0 12px;border:1px solid rgba(255,255,255,.18);border-radius:999px;background:rgba(255,255,255,.1);backdrop-filter:blur(12px);font-size:12px;color:rgba(255,255,255,.86)}
-.badge i{width:7px;height:7px;border-radius:50%;background:#34d399;box-shadow:0 0 0 5px rgba(52,211,153,.13);animation:pulse-dot 2s ease infinite}
-@keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:.4}}
+.tag{display:inline-flex;align-items:center;gap:7px;height:30px;padding:0 12px;border:1px solid rgba(255,255,255,.18);border-radius:999px;background:rgba(255,255,255,.1);backdrop-filter:blur(12px);font-size:12px;color:rgba(255,255,255,.86)}
+.tag i{width:7px;height:7px;border-radius:50%;background:#34d399;box-shadow:0 0 0 5px rgba(52,211,153,.13);animation:pulse 2s ease infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
 h1{font-size:36px;line-height:1.1;letter-spacing:-.06em;margin:18px 0 10px}
 .hero p{max-width:340px;color:rgba(255,255,255,.72);font-size:14px}
-.card{position:relative;overflow:hidden;background:var(--card);border:1px solid rgba(255,255,255,.72);border-radius:28px;padding:18px;box-shadow:0 30px 70px rgba(2,6,23,.34),inset 0 1px 0 rgba(255,255,255,.85);backdrop-filter:blur(22px)}
-.card-top{position:absolute;inset:0 0 auto;height:110px;background:linear-gradient(135deg,rgba(124,58,237,.14),rgba(236,72,153,.1),rgba(249,115,22,.08));pointer-events:none}
+.card{position:relative;overflow:hidden;background:var(--card);border:1px solid rgba(255,255,255,.72);border-radius:28px;padding:18px;box-shadow:0 30px 70px rgba(2,6,23,.34),inset 0 1px 0 rgba(255,255,255,.85)}
+.card::before{content:"";position:absolute;inset:0 0 auto;height:110px;background:linear-gradient(135deg,rgba(124,58,237,.14),rgba(236,72,153,.1),rgba(249,115,22,.08));pointer-events:none}
 .mail{position:relative;display:flex;align-items:center;gap:12px;text-decoration:none;color:#fff;border-radius:22px;padding:15px;background:linear-gradient(135deg,var(--brand),var(--pink) 60%,var(--orange));box-shadow:0 16px 34px rgba(124,58,237,.28);margin-bottom:6px}
 .mail:active,.entry:active,.copy:active{transform:scale(.985)}
-.mail-icon{display:grid;place-items:center;flex:0 0 42px;height:42px;border-radius:15px;background:rgba(255,255,255,.18);font-size:21px;font-weight:900}
-.mail strong{display:block;font-size:17px;letter-spacing:.01em}
+.m-icon{display:grid;place-items:center;flex:0 0 42px;height:42px;border-radius:15px;background:rgba(255,255,255,.18);font-size:21px;font-weight:900}
+.mail strong{display:block;font-size:17px}
 .mail small{display:block;color:rgba(255,255,255,.78);font-size:12px;margin-top:2px}
-.sec-title{position:relative;display:flex;align-items:center;justify-content:space-between;margin:16px 2px 11px;color:#111827;font-weight:850;font-size:15px}
-.sec-title span{color:var(--muted);font-size:12px;font-weight:600}
-.grid{display:grid;gap:10px}
-.entry{position:relative;display:flex;align-items:center;justify-content:space-between;text-decoration:none;color:#111827;background:#fff;border:1px solid var(--line);border-radius:18px;padding:13px 14px;min-height:56px;box-shadow:0 8px 20px rgba(15,23,42,.05);transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}
-.entry-label{display:flex;align-items:center;gap:10px}
-.entry-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
-.entry:nth-child(1) .entry-dot{background:var(--brand);box-shadow:0 0 0 4px rgba(124,58,237,.15)}
-.entry:nth-child(2) .entry-dot{background:var(--pink);box-shadow:0 0 0 4px rgba(236,72,153,.15)}
-.entry:nth-child(3) .entry-dot{background:#10b981;box-shadow:0 0 0 4px rgba(16,185,129,.15)}
-.entry:nth-child(4) .entry-dot{background:var(--orange);box-shadow:0 0 0 4px rgba(249,115,22,.15)}
-.entry b{font-size:14px;font-weight:700;letter-spacing:.01em}
+.st{position:relative;display:flex;align-items:center;justify-content:space-between;margin:16px 2px 11px;color:#111827;font-weight:850;font-size:15px}
+.st span{color:var(--muted);font-size:12px;font-weight:600}
+.g{display:grid;gap:10px}
+.entry{position:relative;display:flex;align-items:center;justify-content:space-between;text-decoration:none;color:#111827;background:#fff;border:1px solid var(--line);border-radius:18px;padding:13px 14px;min-height:56px;box-shadow:0 8px 20px rgba(15,23,42,.05);transition:transform .18s ease,box-shadow .18s ease}
+.el{display:flex;align-items:center;gap:10px}
+.dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.entry:nth-child(1) .dot{background:var(--brand);box-shadow:0 0 0 4px rgba(124,58,237,.15)}
+.entry:nth-child(2) .dot{background:var(--pink);box-shadow:0 0 0 4px rgba(236,72,153,.15)}
+.entry:nth-child(3) .dot{background:var(--green);box-shadow:0 0 0 4px rgba(16,185,129,.15)}
+.entry:nth-child(4) .dot{background:var(--orange);box-shadow:0 0 0 4px rgba(249,115,22,.15)}
+.entry b{font-size:14px;font-weight:700}
 .entry small{color:var(--muted);font-size:12px;font-weight:500;margin-left:2px}
 .go{display:inline-flex;align-items:center;justify-content:center;min-width:52px;height:32px;border-radius:999px;background:#f3e8ff;color:#6d28d9;font-size:13px;font-weight:850}
 .entry:nth-child(2) .go{background:#ffe4e6;color:#be123c}
 .entry:nth-child(3) .go{background:#dcfce7;color:#15803d}
 .entry:nth-child(4) .go{background:#ffedd5;color:#c2410c}
 .copy{width:100%;border:0;margin-top:12px;border-radius:18px;padding:13px 14px;background:#111827;color:#fff;font:inherit;font-weight:850;cursor:pointer;font-size:14px}
-.notices{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}
+.notes{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}
 .note{border-radius:16px;background:#f8fafc;border:1px solid #eef2ff;padding:11px;color:#64748b;font-size:12px;line-height:1.55}
 .note b{display:block;color:#334155;font-size:13px;margin-bottom:2px}
-.foot{color:rgba(255,255,255,.5);font-size:11px;margin:14px 8px 0;text-align:center}
-@media (hover:hover){.entry:hover,.mail:hover{transform:translateY(-2px);box-shadow:0 16px 28px rgba(15,23,42,.1)}.copy:hover{opacity:.92}}
-@media (max-width:360px){body{padding:12px}.card{border-radius:22px;padding:14px}h1{font-size:31px}.notices{grid-template-columns:1fr}.mail strong{font-size:16px}}
-@media (prefers-color-scheme:dark){:root{color-scheme:dark}.card{background:rgba(15,23,42,.86);border-color:rgba(255,255,255,.14)}.sec-title,.entry{color:#f8fafc}.entry{background:rgba(15,23,42,.9);border-color:rgba(255,255,255,.09)}.entry small{color:#94a3b8}.notices .note{background:rgba(15,23,42,.76);border-color:rgba(255,255,255,.08);color:#94a3b8}.note b{color:#e2e8f0}.copy{background:#fff;color:#111827}}
+.ft{color:rgba(255,255,255,.5);font-size:11px;margin:14px 8px 0;text-align:center}
+@media(hover:hover){.entry:hover,.mail:hover{transform:translateY(-2px);box-shadow:0 16px 28px rgba(15,23,42,.1)}.copy:hover{opacity:.92}}
+@media(max-width:360px){body{padding:12px}.card{border-radius:22px;padding:14px}h1{font-size:31px}.notes{grid-template-columns:1fr}.mail strong{font-size:16px}}
+@media(prefers-color-scheme:dark){:root{color-scheme:dark}.card{background:rgba(15,23,42,.86);border-color:rgba(255,255,255,.14)}.st,.entry{color:#f8fafc}.entry{background:rgba(15,23,42,.9);border-color:rgba(255,255,255,.09)}.entry small{color:#94a3b8}.notes .note{background:rgba(15,23,42,.76);border-color:rgba(255,255,255,.08);color:#94a3b8}.note b{color:#e2e8f0}.copy{background:#fff;color:#111827}}
 </style>
 </head>
 <body>
-<main class="wrap" id="app">
-  <section class="hero" aria-label="页面说明">
-    <div class="badge"><i></i>地址实时可用 · 建议收藏</div>
+<main class="w">
+  <section class="hero">
+    <div class="tag"><i></i>地址实时可用 · 建议收藏</div>
     <h1>永不失联<br>最新地址入口</h1>
-    <p>点击下方任一线路即可进入，系统将自动选择可用地址。若在微信、QQ、抖音等 App 内无法打开，请复制到系统浏览器访问。</p>
+    <p>点击下方任一线路即可进入。若在微信、QQ、抖音等 App 内无法打开，请复制到系统浏览器访问。</p>
   </section>
-  <section class="card" aria-label="入口">
-    <div class="card-top"></div>
+  <section class="card">
     <a class="mail" href="mailto:4@455555.XYZ" rel="nofollow">
-      <span class="mail-icon">@</span>
+      <span class="m-icon">@</span>
       <span><strong>4@455555.XYZ</strong><small>发邮件 30 秒内自动回复最新地址</small></span>
     </a>
-    <div class="sec-title">选择线路进入 <span>自动分配可用地址</span></div>
-    <div class="grid">
-      <a class="entry" href="/r1.html" rel="nofollow"><span class="entry-label"><span class="entry-dot"></span><span><b>线路一</b> <small>可用</small></span></span><span class="go">进入</span></a>
-      <a class="entry" href="/r2.html" rel="nofollow"><span class="entry-label"><span class="entry-dot"></span><span><b>线路二</b> <small>可用</small></span></span><span class="go">进入</span></a>
-      <a class="entry" href="/r3.html" rel="nofollow"><span class="entry-label"><span class="entry-dot"></span><span><b>线路三</b> <small>可用</small></span></span><span class="go">进入</span></a>
-      <a class="entry" href="/r4.html" rel="nofollow"><span class="entry-label"><span class="entry-dot"></span><span><b>线路四</b> <small>可用</small></span></span><span class="go">进入</span></a>
+    <div class="st">选择线路进入 <span>推荐 Chrome / Safari</span></div>
+    <div class="g">
+      <a class="entry" href="/r1.html" rel="nofollow"><span class="el"><span class="dot"></span><span><b>线路一</b> <small>www.455333.xyz</small></span></span><span class="go">进入</span></a>
+      <a class="entry" href="/r2.html" rel="nofollow"><span class="el"><span class="dot"></span><span><b>线路二</b> <small>www.466333.xyz</small></span></span><span class="go">进入</span></a>
+      <a class="entry" href="/r3.html" rel="nofollow"><span class="el"><span class="dot"></span><span><b>线路三</b> <small>www.477333.xyz</small></span></span><span class="go">进入</span></a>
+      <a class="entry" href="/r4.html" rel="nofollow"><span class="el"><span class="dot"></span><span><b>线路四</b> <small>www.488333.xyz</small></span></span><span class="go">进入</span></a>
     </div>
-    <button class="copy" id="copyBtn" type="button">复制当前页面地址</button>
-    <div class="notices">
-      <div class="note"><b>打不开怎么办</b>复制本页链接到 Chrome / Edge / Safari 打开。</div>
+    <button class="copy" id="c" type="button">复制当前页面地址</button>
+    <div class="notes">
+      <div class="note"><b>打不开怎么办</b>复制本页链接到 Chrome / Edge / Safari。</div>
       <div class="note"><b>防止迷路</b>添加到主屏幕或收藏本页，随时访问。</div>
     </div>
   </section>
-  <p class="foot">本页已设置禁止索引，所有地址均经过加密处理，防爬虫抓取。</p>
+  <p class="ft">本页已设置禁止索引，所有地址均经过加密处理，防爬虫抓取。</p>
 </main>
 <script>
-(function(){
-  var ua=navigator.userAgent||'';
-  var low=ua.toLowerCase();
-  var botRule=/bot|spider|crawl|slurp|crawler|preview|headless|phantom|selenium|puppeteer|playwright|scrapy|curl|wget|python|java\/|go-http|httpclient|axios|okhttp|postman|insomnia|monitor|scanner|scan|bingpreview|facebookexternalhit|twitterbot|telegrambot|whatsapp|discordbot|linebot|baiduspider|sogou|360spider|bytespider|yisouspider|duckduckbot|semrush|ahrefs|mj12bot|petalbot|adsbot/i;
-  if(botRule.test(low)||navigator.webdriver||/headlesschrome/i.test(ua)||low.length<20){
-    document.getElementById('app').innerHTML='<div style="text-align:center;color:#64748b;padding:40px 20px;font-size:14px">页面不存在</div>';
-    document.title='404';
-    return;
-  }
-  var isInApp=/micromessenger|wechat|\bqq\/(?!.*qqbrowser)|douyin|aweme|tiktok|kwai|kuaishou|snssdk|bytedance|weibo|alipayclient|dingtalk|baiduboxapp|xiaohongshu|xhs|taobao|tmall|ucbrowser|newsarticle/i.test(low);
-  if(isInApp){
-    var app='App';
-    if(/micromessenger|wechat/i.test(ua))app='微信';
-    else if(/\bqq\//i.test(ua))app='QQ';
-    else if(/douyin|aweme/i.test(ua))app='抖音';
-    else if(/kwai|kuaishou/i.test(ua))app='快手';
-    else if(/weibo/i.test(ua))app='微博';
-    else if(/alipayclient/i.test(ua))app='支付宝';
-    else if(/dingtalk/i.test(ua))app='钉钉';
-    else if(/baiduboxapp/i.test(ua))app='百度';
-    else if(/xiaohongshu|xhs/i.test(ua))app='小红书';
-    else if(/taobao|tmall/i.test(ua))app='淘宝';
-    document.getElementById('app').innerHTML='<div style="background:linear-gradient(160deg,#160824,#25104a,#0f172a);min-height:100svh;display:flex;align-items:center;justify-content:center;padding:20px;color:#fff;font:15px/1.65 system-ui,sans-serif"><div style="width:min(440px,100%);text-align:center;background:rgba(15,23,42,.9);border:1px solid rgba(255,255,255,.14);border-radius:24px;padding:24px"><h1 style="font-size:20px;margin-bottom:10px">请不要在 '+app+' 内直接打开</h1><p style="color:#94a3b8;font-size:14px;margin-bottom:18px">'+app+' 内置浏览器可能拦截跳转，请复制下方地址到系统浏览器打开。</p><div style="background:#111827;border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:14px;margin-bottom:16px;word-break:break-all;font-size:13px;color:#e2e8f0;user-select:all">'+location.origin+'/</div><button onclick="(function(){var u=location.origin+\'/\';var b=document.querySelector(\'button\');if(navigator.clipboard){navigator.clipboard.writeText(u).then(function(){b.textContent=\'已复制\'}).catch(function(){fallback()})}else fallback();function fallback(){var i=document.createElement(\'textarea\');i.value=u;document.body.appendChild(i);i.select();document.execCommand(\'copy\');document.body.removeChild(i);b.textContent=\'已复制\'}})()" style="width:100%;border:0;border-radius:16px;padding:14px;background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff;font:inherit;font-weight:850;font-size:15px;cursor:pointer">复制首页地址</button><p style="color:#64748b;font-size:12px;margin-top:14px">复制后打开 Chrome / Edge / Safari 粘贴访问</p></div></div>';
-    return;
-  }
-  var btn=document.getElementById('copyBtn');
-  btn.onclick=function(){
-    var text=location.href.split('#')[0];
-    function ok(){btn.textContent='已复制，去浏览器粘贴打开';setTimeout(function(){btn.textContent='复制当前页面地址'},2200)}
-    function fallback(){var i=document.createElement('textarea');i.value=text;document.body.appendChild(i);i.select();document.execCommand('copy');document.body.removeChild(i);ok()}
-    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(ok).catch(fallback)}else fallback();
-  };
-})();
+var b=document.getElementById('c');b.onclick=function(){var t=location.href.split('#')[0];function ok(){b.textContent='已复制';setTimeout(function(){b.textContent='复制当前页面地址'},2e3)}function fb(){var i=document.createElement('textarea');i.value=t;document.body.appendChild(i);i.select();document.execCommand('copy');document.body.removeChild(i);ok()}navigator.clipboard&&navigator.clipboard.writeText?navigator.clipboard.writeText(t).then(ok).catch(fb):fb()};
 </script>
 </body>
 </html>
