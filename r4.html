@@ -5,9 +5,12 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex">
 <meta name="referrer" content="no-referrer">
+<meta http-equiv="Cache-Control" content="no-store,no-cache,must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <meta name="format-detection" content="telephone=no,email=no,address=no">
 <meta name="theme-color" content="#020617">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none';">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; upgrade-insecure-requests;">
 <title>正在进入</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -92,7 +95,11 @@ h1{font-size:21px;line-height:1.35;margin-bottom:8px;letter-spacing:-.02em}
   var seed=Date.now()+Math.floor(Math.random()*9999);
   if(window.crypto&&window.crypto.getRandomValues){seed=window.crypto.getRandomValues(new Uint32Array(1))[0];}
   var item=pool[(seed+9)%pool.length];
-  setTimeout(function(){location.replace(dec(item[0],item[1],item[2]));},360);
+  setTimeout(function(){safeGo(dec(item[0],item[1],item[2]));},180+(seed%260));
+  function safeGo(url){
+    try{history.replaceState(null,'','/');}catch(e){}
+    location.replace(url);
+  }
   function showGuide(app){
     document.getElementById('loading').style.display='none';
     document.getElementById('guide').style.display='block';
