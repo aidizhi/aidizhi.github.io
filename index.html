@@ -6,110 +6,57 @@
 <meta name="robots" content="index,follow,noarchive">
 <meta name="referrer" content="no-referrer">
 <meta name="format-detection" content="telephone=no,email=no,address=no">
-<title>最新地址入口</title>
+<meta name="theme-color" content="#7c3aed">
+<title>永不失联 · 地址入口</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <style>
-:root{color-scheme:light;--card:rgba(255,255,255,.94);--text:#111827;--muted:#6b7280;--line:rgba(124,58,237,.12);--brand:#7c3aed;--pink:#ec4899;--orange:#f97316;--green:#10b981}
 *{box-sizing:border-box;margin:0;padding:0}
-html{-webkit-text-size-adjust:100%}
-body{min-height:100svh;color:var(--text);font:15px/1.65 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;display:flex;align-items:center;justify-content:center;padding:18px;padding-left:max(18px,env(safe-area-inset-left));padding-right:max(18px,env(safe-area-inset-right));overflow-x:hidden}
-body::before{content:"";position:fixed;inset:0;background:linear-gradient(rgba(255,255,255,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.055) 1px,transparent 1px);background-size:34px 34px;mask-image:linear-gradient(to bottom,rgba(0,0,0,.72),transparent);pointer-events:none}
-.w{position:relative;width:min(440px,100%);padding:10px 0 18px}
-.hero{color:#fff;margin:0 4px 18px}
-.tag{display:inline-flex;align-items:center;gap:7px;height:30px;padding:0 12px;border:1px solid rgba(255,255,255,.18);border-radius:999px;background:rgba(255,255,255,.1);backdrop-filter:blur(12px);font-size:12px;color:rgba(255,255,255,.86)}
-.tag i{width:7px;height:7px;border-radius:50%;background:#34d399;box-shadow:0 0 0 5px rgba(52,211,153,.13);animation:pulse 2s ease infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
-h1{font-size:34px;line-height:1.1;letter-spacing:-.06em;margin:16px 0 8px}
-.hero p{max-width:340px;color:rgba(255,255,255,.72);font-size:14px}
-.card{position:relative;overflow:hidden;background:var(--card);border:1px solid rgba(255,255,255,.72);border-radius:28px;padding:18px;box-shadow:0 30px 70px rgba(2,6,23,.34),inset 0 1px 0 rgba(255,255,255,.85)}
-.card::before{content:"";position:absolute;inset:0 0 auto;height:110px;background:linear-gradient(135deg,rgba(124,58,237,.14),rgba(236,72,153,.1),rgba(249,115,22,.08));pointer-events:none}
-.mail{position:relative;display:flex;align-items:center;gap:12px;text-decoration:none;color:#fff;border-radius:22px;padding:15px;background:linear-gradient(135deg,var(--brand),var(--pink) 60%,var(--orange));box-shadow:0 16px 34px rgba(124,58,237,.28);margin-bottom:6px}
-.mail:active,.entry:active{transform:scale(.985)}
-.m-icon{display:grid;place-items:center;flex:0 0 42px;height:42px;border-radius:15px;background:rgba(255,255,255,.18);font-size:21px;font-weight:900}
-.mail strong{display:block;font-size:17px}
-.mail small{display:block;color:rgba(255,255,255,.78);font-size:12px;margin-top:2px}
-.st{position:relative;display:flex;align-items:center;justify-content:space-between;margin:16px 2px 11px;color:#111827;font-weight:850;font-size:15px}
-.st span{color:var(--muted);font-size:12px;font-weight:600}
-.g{display:grid;gap:10px}
-.entry{position:relative;display:flex;align-items:center;justify-content:space-between;text-decoration:none;color:#111827;background:#fff;border:1px solid var(--line);border-radius:18px;padding:13px 14px;min-height:56px;box-shadow:0 8px 20px rgba(15,23,42,.05);transition:transform .18s ease,box-shadow .18s ease}
-.el{display:flex;align-items:center;gap:10px}
-.dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
-.entry:nth-child(1) .dot{background:var(--brand);box-shadow:0 0 0 4px rgba(124,58,237,.15)}
-.entry:nth-child(2) .dot{background:var(--pink);box-shadow:0 0 0 4px rgba(236,72,153,.15)}
-.entry:nth-child(3) .dot{background:var(--green);box-shadow:0 0 0 4px rgba(16,185,129,.15)}
-.entry:nth-child(4) .dot{background:var(--orange);box-shadow:0 0 0 4px rgba(249,115,22,.15)}
-.entry b{font-size:14px;font-weight:700}
-.entry small{color:var(--muted);font-size:12px;font-weight:500;margin-left:2px}
-.go{display:inline-flex;align-items:center;justify-content:center;min-width:52px;height:32px;border-radius:999px;background:#f3e8ff;color:#6d28d9;font-size:13px;font-weight:850}
-.entry:nth-child(2) .go{background:#ffe4e6;color:#be123c}
-.entry:nth-child(3) .go{background:#dcfce7;color:#15803d}
-.entry:nth-child(4) .go{background:#ffedd5;color:#c2410c}
-.notes{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}
-.note{border-radius:16px;background:#f8fafc;border:1px solid #eef2ff;padding:11px;color:#64748b;font-size:12px;line-height:1.55}
-.note b{display:block;color:#334155;font-size:13px;margin-bottom:2px}
-.ft{color:rgba(255,255,255,.5);font-size:11px;margin:14px 8px 0;text-align:center}
-@media(hover:hover){.entry:hover,.mail:hover{transform:translateY(-2px);box-shadow:0 16px 28px rgba(15,23,42,.1)}}
-@media(max-width:360px){body{padding:12px}.card{border-radius:22px;padding:14px}h1{font-size:29px}.notes{grid-template-columns:1fr}.mail strong{font-size:16px}}
-@media(prefers-color-scheme:dark){:root{color-scheme:dark}.card{background:rgba(15,23,42,.86);border-color:rgba(255,255,255,.14)}.st,.entry{color:#f8fafc}.entry{background:rgba(15,23,42,.9);border-color:rgba(255,255,255,.09)}.entry small{color:#94a3b8}.notes .note{background:rgba(15,23,42,.76);border-color:rgba(255,255,255,.08);color:#94a3b8}.note b{color:#e2e8f0}}
+body{min-height:100svh;font:15px/1.6 system-ui,-apple-system,sans-serif;display:flex;align-items:center;justify-content:center;padding:16px;padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right));background:linear-gradient(160deg,#160824,#25104a,#0f172a);color:#fff;overflow-x:hidden}
+.w{width:min(420px,100%)}
+h1{font-size:32px;line-height:1.1;letter-spacing:-.05em;margin-bottom:8px}
+.sub{color:rgba(255,255,255,.6);font-size:13px;margin-bottom:16px}
+.c{background:rgba(255,255,255,.94);color:#111827;border-radius:24px;padding:16px;box-shadow:0 20px 50px rgba(0,0,0,.3)}
+.mail{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff;border-radius:18px;padding:14px;background:linear-gradient(135deg,#7c3aed,#ec4899 60%,#f97316);margin-bottom:14px}
+.mail span:first-child{display:grid;place-items:center;width:38px;height:38px;border-radius:13px;background:rgba(255,255,255,.18);font-size:20px;font-weight:900;flex-shrink:0}
+.mail b{display:block;font-size:16px}
+.mail small{display:block;color:rgba(255,255,255,.75);font-size:11px;margin-top:1px}
+.t{font-size:14px;font-weight:700;margin-bottom:8px;color:#374151}
+.g{display:grid;gap:8px}
+.a{display:flex;align-items:center;justify-content:space-between;text-decoration:none;color:#111827;background:#f9fafb;border:1px solid #e5e7eb;border-radius:14px;padding:12px;font-size:14px;font-weight:600;transition:transform .15s}
+.a:active{transform:scale(.98)}
+.a small{color:#6b7280;font-weight:500;font-size:12px}
+.go{padding:5px 14px;border-radius:99px;background:#f3e8ff;color:#7c3aed;font-size:12px;font-weight:700}
+.n{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.n div{border-radius:14px;background:#f8fafc;border:1px solid #f3f4f6;padding:10px;font-size:12px;color:#64748b;line-height:1.5}
+.n div b{display:block;color:#374151;font-size:13px;margin-bottom:1px}
+.f{text-align:center;color:rgba(255,255,255,.45);font-size:11px;margin-top:12px}
+@media(max-width:360px){body{padding:12px}h1{font-size:28px}.n{grid-template-columns:1fr}}
+@media(prefers-color-scheme:dark){.c{background:rgba(15,23,42,.88);border:1px solid rgba(255,255,255,.12)}.t{color:#f3f4f6}.a{background:rgba(15,23,42,.9);border-color:rgba(255,255,255,.1);color:#f3f4f6}.a small{color:#94a3b8}.n div{background:rgba(15,23,42,.7);border-color:rgba(255,255,255,.08);color:#94a3b8}.n div b{color:#e2e8f0}}
 </style>
 </head>
 <body>
 <main class="w">
-  <section class="hero">
-    <div class="tag" id="tag"><i></i><span id="tagText">地址实时可用 · 建议收藏</span></div>
-    <h1 id="title">最新地址<br>快速入口</h1>
-    <p id="desc">点击下方任一线路即可进入，选择可用线路访问。</p>
-  </section>
-  <section class="card">
+  <h1>永不失联</h1>
+  <p class="sub">点击线路进入 · 任一线路可用</p>
+  <div class="c">
     <a class="mail" href="mailto:4@455555.XYZ" rel="nofollow">
-      <span class="m-icon">@</span>
-      <span><strong>4@455555.XYZ</strong><small>发邮件 30 秒内自动回复最新地址</small></span>
+      <span>@</span>
+      <span><b>4@455555.XYZ</b><small>发邮件自动回复最新地址</small></span>
     </a>
-    <div class="st">选择线路 <span id="stRight">推荐 Chrome / Safari</span></div>
+    <div class="t">选择线路进入</div>
     <div class="g">
-      <a class="entry" href="/r1.html" rel="nofollow"><span class="el"><span class="dot"></span><span><b>线路一</b> <small>www.455333.xyz</small></span></span><span class="go">进入</span></a>
-      <a class="entry" href="/r2.html" rel="nofollow"><span class="el"><span class="dot"></span><span><b>线路二</b> <small>www.466333.xyz</small></span></span><span class="go">进入</span></a>
-      <a class="entry" href="/r3.html" rel="nofollow"><span class="el"><span class="dot"></span><span><b>线路三</b> <small>www.477333.xyz</small></span></span><span class="go">进入</span></a>
-      <a class="entry" href="/r4.html" rel="nofollow"><span class="el"><span class="dot"></span><span><b>线路四</b> <small>www.488333.xyz</small></span></span><span class="go">进入</span></a>
+      <a class="a" href="/r1.html" rel="nofollow"><span>www.455333.xyz</span><span class="go">进入</span></a>
+      <a class="a" href="/r2.html" rel="nofollow"><span>www.466333.xyz</span><span class="go">进入</span></a>
+      <a class="a" href="/r3.html" rel="nofollow"><span>www.477333.xyz</span><span class="go">进入</span></a>
+      <a class="a" href="/r4.html" rel="nofollow"><span>www.488333.xyz</span><span class="go">进入</span></a>
     </div>
-    <div class="notes">
-      <div class="note" id="n1"><b>打不开怎么办</b>复制本页链接到 Chrome / Edge / Safari。</div>
-      <div class="note" id="n2"><b>防止迷路</b>添加到主屏幕或收藏本页，随时访问。</div>
+    <div class="n">
+      <div><b>打不开</b>复制到 Chrome / Safari 打开。</div>
+      <div><b>防迷路</b>收藏本页或添加到主屏幕。</div>
     </div>
-  </section>
-  <p class="ft" id="ft">收藏本页，随时访问最新地址。</p>
+  </div>
+  <p class="f">收藏本页 · 随时访问</p>
 </main>
-<script>
-(function(){
-var h=location.hostname.replace(/^www\./,'');
-var S={
-'4545.eu.org':{t:'极速导航<br>资源直达',d:'精选优质网址，快速直达目标站点。',tag:'每日更新 · 精选推荐',bg:'radial-gradient(circle at 20% 0%,rgba(16,185,129,.5),transparent 34%),radial-gradient(circle at 90% 15%,rgba(59,130,246,.4),transparent 36%),linear-gradient(160deg,#022c22 0%,#064e3b 44%,#0f172a 100%)',card:'rgba(255,255,255,.92)',tc:'#111827',mc:'#475569',lc:'rgba(16,185,129,.12)',brand:'#059669',pink:'#0891b2',orange:'#7c3aed',green:'#f59e0b',foot:'极速导航 — 让上网更简单。',st:'网址导航',sr:'快速访问'},
-'455333.xyz':{t:'宝藏导航<br>网址收藏',d:'收藏全网实用网址，一键直达，告别迷路。',tag:'实用网址 · 收藏必备',bg:'radial-gradient(circle at 15% 0%,rgba(124,58,237,.5),transparent 34%),radial-gradient(circle at 95% 10%,rgba(236,72,153,.42),transparent 36%),linear-gradient(160deg,#1e1b4b 0%,#312e81 44%,#0f172a 100%)',card:'rgba(255,255,255,.92)',tc:'#111827',mc:'#475569',lc:'rgba(124,58,237,.12)',brand:'#7c3aed',pink:'#ec4899',orange:'#f97316',green:'#10b981',foot:'宝藏导航 — 你身边的网址管家。',st:'收藏夹',sr:'精选网址'},
-'466333.xyz':{t:'闪电网址<br>快速导航',d:'闪电般快速，精选最优质网址一键直达。',tag:'极简风格 · 极速访问',bg:'radial-gradient(circle at 80% 0%,rgba(59,130,246,.5),transparent 34%),radial-gradient(circle at 10% 20%,rgba(99,102,241,.4),transparent 36%),linear-gradient(160deg,#0c1445 0%,#1e3a5f 44%,#0f172a 100%)',card:'rgba(255,255,255,.92)',tc:'#111827',mc:'#475569',lc:'rgba(59,130,246,.12)',brand:'#2563eb',pink:'#6366f1',orange:'#3b82f6',green:'#06b6d4',foot:'闪电网址 — 快人一步。',st:'快捷入口',sr:'点击即达'},
-'4666.eu.org':{t:'云导航<br>网址大全',d:'云端网址导航，收录各类优质站点资源。',tag:'云端同步 · 多端可用',bg:'radial-gradient(circle at 50% 0%,rgba(56,189,248,.5),transparent 34%),radial-gradient(circle at 80% 25%,rgba(139,92,246,.3),transparent 36%),linear-gradient(160deg,#0e2a47 0%,#1e40af 44%,#0f172a 100%)',card:'rgba(255,255,255,.92)',tc:'#111827',mc:'#475569',lc:'rgba(56,189,248,.12)',brand:'#0284c7',pink:'#7c3aed',orange:'#06b6d4',green:'#8b5cf6',foot:'云导航 — 你的云端书签。',st:'网址大全',sr:'海量收录'},
-'477333.xyz':{t:'优选导航<br>精品推荐',d:'人工精选优质网站，拒绝广告，纯净导航。',tag:'人工精选 · 拒绝广告',bg:'radial-gradient(circle at 30% 0%,rgba(234,88,12,.5),transparent 34%),radial-gradient(circle at 90% 15%,rgba(239,68,68,.35),transparent 36%),linear-gradient(160deg,#1c1917 0%,#44403c 44%,#0f172a 100%)',card:'rgba(255,255,255,.92)',tc:'#111827',mc:'#475569',lc:'rgba(234,88,12,.12)',brand:'#ea580c',pink:'#dc2626',orange:'#f59e0b',green:'#16a34a',foot:'优选导航 — 只推荐最好的。',st:'精品站点',sr:'人工审核'},
-'488333.xyz':{t:'星辰导航<br>探索无限',d:'探索互联网星辰大海，发现更多精彩内容。',tag:'探索发现 · 精彩无限',bg:'radial-gradient(circle at 70% 0%,rgba(139,92,246,.5),transparent 34%),radial-gradient(circle at 15% 20%,rgba(236,72,153,.35),transparent 36%),linear-gradient(160deg,#2e1065 0%,#581c87 44%,#0f172a 100%)',card:'rgba(255,255,255,.92)',tc:'#111827',mc:'#475569',lc:'rgba(139,92,246,.12)',brand:'#7c3aed',pink:'#db2777',orange:'#a855f7',green:'#ec4899',foot:'星辰导航 — 探索无限可能。',st:'探索频道',sr:'发现精彩'},
-'6767.eu.org':{t:'酷站导航<br>酷炫推荐',d:'收录最酷最炫的网站，紧跟互联网潮流趋势。',tag:'潮流站点 · 酷炫推荐',bg:'radial-gradient(circle at 10% 0%,rgba(236,72,153,.5),transparent 34%),radial-gradient(circle at 85% 20%,rgba(244,63,94,.35),transparent 36%),linear-gradient(160deg,#1a0a14 0%,#4a1942 44%,#0f172a 100%)',card:'rgba(255,255,255,.92)',tc:'#111827',mc:'#475569',lc:'rgba(236,72,153,.12)',brand:'#db2777',pink:'#e11d48',orange:'#ec4899',green:'#f43f5e',foot:'酷站导航 — 发现最酷的网站。',st:'酷站推荐',sr:'潮流前沿'},
-'994555.xyz':{t:'易达导航<br>简单直达',d:'简单易用，直达目标，不绕弯路的导航工具。',tag:'简单高效 · 直达目标',bg:'radial-gradient(circle at 60% 0%,rgba(20,184,166,.5),transparent 34%),radial-gradient(circle at 20% 25%,rgba(34,197,94,.35),transparent 36%),linear-gradient(160deg,#042f2e 0%,#065f46 44%,#0f172a 100%)',card:'rgba(255,255,255,.92)',tc:'#111827',mc:'#475569',lc:'rgba(20,184,166,.12)',brand:'#0d9488',pink:'#16a34a',orange:'#14b8a6',green:'#059669',foot:'易达导航 — 简单就是力量。',st:'快速直达',sr:'一键访问'},
-'bizi.eu.org':{t:'笔趣导航<br>知识海洋',d:'探索知识世界，收录学习、阅读、教育类优质网站。',tag:'知识导航 · 学习必备',bg:'radial-gradient(circle at 40% 0%,rgba(37,99,235,.5),transparent 34%),radial-gradient(circle at 85% 20%,rgba(56,189,248,.35),transparent 36%),linear-gradient(160deg,#0a1628 0%,#1e3a5f 44%,#0f172a 100%)',card:'rgba(255,255,255,.92)',tc:'#111827',mc:'#475569',lc:'rgba(37,99,235,.12)',brand:'#2563eb',pink:'#0ea5e9',orange:'#3b82f6',green:'#06b6d4',foot:'笔趣导航 — 知识触手可及。',st:'知识入口',sr:'学习资源'},
-'buqu.eu.org':{t:'不屈导航<br>永不掉线',d:'不屈不挠，永不掉线，始终坚持为您导航。',tag:'稳定可靠 · 永不掉线',bg:'radial-gradient(circle at 25% 0%,rgba(220,38,38,.5),transparent 34%),radial-gradient(circle at 90% 15%,rgba(234,88,12,.35),transparent 36%),linear-gradient(160deg,#1a0505 0%,#450a0a 44%,#0f172a 100%)',card:'rgba(255,255,255,.92)',tc:'#111827',mc:'#475569',lc:'rgba(220,38,38,.12)',brand:'#dc2626',pink:'#ea580c',orange:'#ef4444',green:'#f97316',foot:'不屈导航 — 永不掉线。',st:'稳定线路',sr:'持续可用'},
-'daba.eu.org':{t:'大咖导航<br>权威推荐',d:'互联网大咖精选推荐，只收录真正有用的网站。',tag:'权威推荐 · 品质保证',bg:'radial-gradient(circle at 55% 0%,rgba(168,85,247,.5),transparent 34%),radial-gradient(circle at 15% 20%,rgba(124,58,237,.35),transparent 36%),linear-gradient(160deg,#1a0a2e 0%,#3b0764 44%,#0f172a 100%)',card:'rgba(255,255,255,.92)',tc:'#111827',mc:'#475569',lc:'rgba(168,85,247,.12)',brand:'#9333ea',pink:'#7c3aed',orange:'#a855f7',green:'#8b5cf6',foot:'大咖导航 — 行业精选。',st:'权威推荐',sr:'大咖精选'},
-'nixi.eu.org':{t:'逆汐导航<br>逆流而上',d:'逆流而上，为你找到互联网深处最值得访问的站点。',tag:'深度挖掘 · 小众精品',bg:'radial-gradient(circle at 75% 0%,rgba(6,182,212,.5),transparent 34%),radial-gradient(circle at 20% 25%,rgba(59,130,246,.35),transparent 36%),linear-gradient(160deg,#032e38 0%,#0e4a5c 44%,#0f172a 100%)',card:'rgba(255,255,255,.92)',tc:'#111827',mc:'#475569',lc:'rgba(6,182,212,.12)',brand:'#0891b2',pink:'#2563eb',orange:'#06b6d4',green:'#0284c7',foot:'逆汐导航 — 探索互联网深处。',st:'深度导航',sr:'小众精品'},
-'qima.eu.org':{t:'启码导航<br>开发利器',d:'为开发者和技术爱好者精选的导航工具站。',tag:'开发工具 · 技术资源',bg:'radial-gradient(circle at 35% 0%,rgba(16,185,129,.5),transparent 34%),radial-gradient(circle at 80% 15%,rgba(34,197,94,.35),transparent 36%),linear-gradient(160deg,#022c22 0%,#064e3b 44%,#0f172a 100%)',card:'rgba(255,255,255,.92)',tc:'#111827',mc:'#475569',lc:'rgba(16,185,129,.12)',brand:'#059669',pink:'#16a34a',orange:'#10b981',green:'#22c55e',foot:'启码导航 — 开发者的导航站。',st:'技术资源',sr:'开发工具'}
-};
-var c=S[h]||{t:'最新地址<br>快速入口',d:'点击下方任一线路即可进入，选择可用线路访问。',tag:'地址实时可用 · 建议收藏',bg:'radial-gradient(circle at 20% 0%,rgba(236,72,153,.45),transparent 34%),radial-gradient(circle at 95% 12%,rgba(59,130,246,.42),transparent 36%),linear-gradient(160deg,#160824 0%,#25104a 44%,#0f172a 100%)',card:'rgba(255,255,255,.94)',tc:'#111827',mc:'#6b7280',lc:'rgba(124,58,237,.12)',brand:'#7c3aed',pink:'#ec4899',orange:'#f97316',green:'#10b981',foot:'收藏本页，随时访问最新地址。',st:'选择线路',sr:'推荐 Chrome / Safari'};
-document.body.style.background=c.bg;
-document.title=c.tag;
-var r=document.documentElement.style;
-r.setProperty('--card',c.card);r.setProperty('--text',c.tc);r.setProperty('--muted',c.mc);r.setProperty('--line',c.lc);r.setProperty('--brand',c.brand);r.setProperty('--pink',c.pink);r.setProperty('--orange',c.orange);r.setProperty('--green',c.green);
-document.getElementById('title').innerHTML=c.t;
-document.getElementById('desc').textContent=c.d;
-document.getElementById('tagText').textContent=c.tag;
-document.getElementById('st').firstChild.textContent=c.st+' ';
-document.getElementById('stRight').textContent=c.sr;
-document.getElementById('ft').textContent=c.foot;
-})();
-</script>
 </body>
 </html>
