@@ -1,87 +1,451 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="robots" content="index,follow,noarchive">
-<meta name="referrer" content="no-referrer">
-<meta name="theme-color" content="#7c3aed">
-<title>永不失联 · 最新地址入口</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover,maximum-scale=1,user-scalable=no">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="renderer" content="webkit">
+
+<!-- PWA 核心 Meta -->
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<meta name="msapplication-TileColor" content="#000000">
+<meta name="msapplication-TileImage" content="/icon-192x192.png">
+<meta name="msapplication-config" content="/browserconfig.xml">
+
+<!-- Apple iOS PWA -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="永不失联">
+
+<!-- 通用 PWA -->
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="application-name" content="永不失联">
+<meta name="description" content="永不失联最新地址永久入口，收藏后随时访问，离线也能打开">
+<meta name="keywords" content="永不失联,地址发布,最新地址">
+
+<!-- 安全与隐私 -->
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="format-detection" content="telephone=no,address=no,email=no">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; manifest-src 'self';">
+
+<!-- Open Graph -->
+<meta property="og:title" content="永不失联 - 最新地址永久入口">
+<meta property="og:description" content="永不失联最新地址永久入口，收藏后随时访问">
+<meta property="og:type" content="website">
+<meta property="og:image" content="/icon-512x512.png">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="永不失联 - 最新地址永久入口">
+<meta name="twitter:description" content="永不失联最新地址永久入口，收藏后随时访问">
+<meta name="twitter:image" content="/icon-512x512.png">
+
+<!-- 图标 -->
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/icon-192x192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/icon-512x512.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/favicon-32.png" color="#000000">
+
+<!-- Manifest -->
 <link rel="manifest" href="/manifest.json">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+<!-- 预加载关键资源 -->
+<link rel="preload" href="/icon-192x192.png" as="image">
+<link rel="preconnect" href="https://www.qima.eu.org" crossorigin>
+<link rel="preconnect" href="https://www.nixi.eu.org" crossorigin>
+<link rel="preconnect" href="https://www.6767.eu.org" crossorigin>
+<link rel="preconnect" href="https://www.buqu.eu.org" crossorigin>
+
+<title>永不失联 · 最新地址永久入口</title>
+
 <style>
-:root{color-scheme:light;--card:rgba(255,255,255,.94);--text:#111827;--muted:#6b7280;--line:rgba(124,58,237,.12);--brand:#7c3aed;--pink:#ec4899;--orange:#f97316;--green:#10b981}
-*{box-sizing:border-box;margin:0;padding:0}
-html{-webkit-text-size-adjust:100%}
-body{min-height:100svh;color:var(--text);font:15px/1.65 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;display:flex;align-items:center;justify-content:center;padding:18px;padding-left:max(18px,env(safe-area-inset-left));padding-right:max(18px,env(safe-area-inset-right));background:radial-gradient(circle at 20% 0%,rgba(236,72,153,.45),transparent 34%),radial-gradient(circle at 95% 12%,rgba(59,130,246,.42),transparent 36%),linear-gradient(160deg,#160824 0%,#25104a 44%,#0f172a 100%);overflow-x:hidden}
-body::before{content:"";position:fixed;inset:0;background:linear-gradient(rgba(255,255,255,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.055) 1px,transparent 1px);background-size:34px 34px;mask-image:linear-gradient(to bottom,rgba(0,0,0,.72),transparent);pointer-events:none}
-.w{position:relative;width:min(440px,100%);padding:10px 0 18px}
-.hero{color:#fff;margin:0 4px 18px}
-.tag{display:inline-flex;align-items:center;gap:7px;height:30px;padding:0 12px;border:1px solid rgba(255,255,255,.18);border-radius:999px;background:rgba(255,255,255,.1);backdrop-filter:blur(12px);font-size:12px;color:rgba(255,255,255,.86)}
-.tag i{width:7px;height:7px;border-radius:50%;background:#34d399;box-shadow:0 0 0 5px rgba(52,211,153,.13);animation:pulse 2s ease infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
-h1{font-size:34px;line-height:1.1;letter-spacing:-.06em;margin:18px 0 10px}
-.hero p{max-width:340px;color:rgba(255,255,255,.72);font-size:14px}
-.card{position:relative;overflow:hidden;background:var(--card);border:1px solid rgba(255,255,255,.72);border-radius:28px;padding:18px;box-shadow:0 30px 70px rgba(2,6,23,.34),inset 0 1px 0 rgba(255,255,255,.85)}
-.card::before{content:"";position:absolute;inset:0 0 auto;height:110px;background:linear-gradient(135deg,rgba(124,58,237,.14),rgba(236,72,153,.1),rgba(249,115,22,.08));pointer-events:none}
-.mail{position:relative;display:flex;align-items:center;gap:12px;text-decoration:none;color:#fff;border-radius:22px;padding:15px;background:linear-gradient(135deg,var(--brand),var(--pink) 60%,var(--orange));box-shadow:0 16px 34px rgba(124,58,237,.28);margin-bottom:6px}
-.mail:active,.entry:active{transform:scale(.985)}
-.m-icon{display:grid;place-items:center;flex:0 0 42px;height:42px;border-radius:15px;background:rgba(255,255,255,.18);font-size:21px;font-weight:900}
-.mail strong{display:block;font-size:17px}
-.mail small{display:block;color:rgba(255,255,255,.78);font-size:12px;margin-top:2px}
-.st{position:relative;display:flex;align-items:center;justify-content:space-between;margin:16px 2px 11px;color:#111827;font-weight:850;font-size:15px}
-.st span{color:var(--muted);font-size:12px;font-weight:600}
-.g{display:grid;gap:10px}
-.entry{position:relative;display:flex;align-items:center;justify-content:space-between;text-decoration:none;color:#111827;background:#fff;border:1px solid var(--line);border-radius:18px;padding:13px 14px;min-height:56px;box-shadow:0 8px 20px rgba(15,23,42,.05);transition:transform .18s ease,box-shadow .18s ease}
-.el{display:flex;align-items:center;gap:10px}
-.dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
-.entry:nth-child(1) .dot{background:var(--brand);box-shadow:0 0 0 4px rgba(124,58,237,.15)}
-.entry:nth-child(2) .dot{background:var(--pink);box-shadow:0 0 0 4px rgba(236,72,153,.15)}
-.entry:nth-child(3) .dot{background:var(--green);box-shadow:0 0 0 4px rgba(16,185,129,.15)}
-.entry:nth-child(4) .dot{background:var(--orange);box-shadow:0 0 0 4px rgba(249,115,22,.15)}
-.entry b{font-size:14px;font-weight:700}
-.entry small{color:var(--muted);font-size:12px;font-weight:500;margin-left:2px}
-.go{display:inline-flex;align-items:center;justify-content:center;min-width:52px;height:32px;border-radius:999px;background:#f3e8ff;color:#6d28d9;font-size:13px;font-weight:850}
-.entry:nth-child(2) .go{background:#ffe4e6;color:#be123c}
-.entry:nth-child(3) .go{background:#dcfce7;color:#15803d}
-.entry:nth-child(4) .go{background:#ffedd5;color:#c2410c}
-.tips{margin-top:14px;border-radius:18px;background:#fef3c7;border:1px solid #fde68a;padding:12px;font-size:13px;color:#92400e;line-height:1.6}
-.tips b{color:#78350f}
-.notes{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}
-.note{border-radius:16px;background:#f8fafc;border:1px solid #eef2ff;padding:11px;color:#64748b;font-size:12px;line-height:1.55}
-.note b{display:block;color:#334155;font-size:13px;margin-bottom:2px}
-.ft{color:rgba(255,255,255,.5);font-size:11px;margin:14px 8px 0;text-align:center}
-@media(hover:hover){.entry:hover,.mail:hover{transform:translateY(-2px);box-shadow:0 16px 28px rgba(15,23,42,.1)}}
-@media(max-width:360px){body{padding:12px}.card{border-radius:22px;padding:14px}h1{font-size:29px}.notes{grid-template-columns:1fr}.mail strong{font-size:16px}}
-@media(prefers-color-scheme:dark){:root{color-scheme:dark}.card{background:rgba(15,23,42,.86);border-color:rgba(255,255,255,.14)}.st,.entry{color:#f8fafc}.entry{background:rgba(15,23,42,.9);border-color:rgba(255,255,255,.09)}.entry small{color:#94a3b8}.tips{background:rgba(120,53,15,.2);border-color:rgba(253,230,138,.3);color:#fde68a}.tips b{color:#fef3c7}.notes .note{background:rgba(15,23,42,.76);border-color:rgba(255,255,255,.08);color:#94a3b8}.note b{color:#e2e8f0}}
+/* ===== CSS 变量与主题 ===== */
+:root {
+  --bg: #fff;
+  --fg: #000;
+  --accent: #f90;
+  --accent-hover: #e68000;
+  --muted: #666;
+  --border: #eee;
+  --shadow: rgba(0,0,0,.15);
+  --radius: 12px;
+  --transition: .25s cubic-bezier(.4,0,.2,1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0a0a0a;
+    --fg: #f0f0f0;
+    --accent: #f90;
+    --accent-hover: #ffb84d;
+    --muted: #999;
+    --border: #222;
+    --shadow: rgba(0,0,0,.4);
+  }
+}
+
+/* ===== 基础重置 ===== */
+*,*::before,*::after { margin:0; padding:0; box-sizing:border-box }
+html { -webkit-text-size-adjust:100%; scroll-behavior:smooth }
+body {
+  font: 16px/1.6 system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  text-align: center;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background var(--transition), color var(--transition);
+}
+
+/* ===== 头部 ===== */
+.h1 {
+  background: var(--fg);
+  color: var(--bg);
+  padding: 14px 20px;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  position: relative;
+  overflow: hidden;
+}
+.h1::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,153,0,.15), transparent);
+  animation: shimmer 3s infinite;
+}
+@keyframes shimmer {
+  0% { transform: translateX(-100%) }
+  100% { transform: translateX(100%) }
+}
+
+.h2 {
+  background: var(--accent);
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  position: relative;
+}
+
+/* ===== 内容区 ===== */
+.c {
+  padding: 24px 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.tip {
+  font-size: 14px;
+  color: var(--fg);
+  margin-bottom: 6px;
+  opacity: .9;
+}
+.tip-s {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+
+/* 链接卡片 */
+.link-card {
+  display: block;
+  margin: 8px auto;
+  padding: 14px 20px;
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: .5px;
+  transition: all var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+.link-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px var(--shadow);
+}
+.link-card:active {
+  transform: translateY(0);
+}
+.link-card::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: var(--accent);
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+.link-card:hover::before { opacity: 1 }
+
+/* ===== 底部 ===== */
+.bt {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+  font-size: 13px;
+  color: var(--muted);
+}
+.bt p { margin-bottom: 6px }
+
+/* ===== 网络状态指示器 ===== */
+.net-status {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10000;
+  padding: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+  transform: translateY(-100%);
+  transition: transform var(--transition);
+}
+.net-status.offline {
+  background: #dc3545;
+  color: #fff;
+  transform: translateY(0);
+}
+.net-status.online {
+  background: #28a745;
+  color: #fff;
+  transform: translateY(0);
+}
+
+/* ===== 更新提示 ===== */
+.update-toast {
+  display: none;
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--fg);
+  color: var(--bg);
+  padding: 12px 24px;
+  border-radius: 24px;
+  font-size: 13px;
+  font-weight: 600;
+  z-index: 9997;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 4px 20px var(--shadow);
+  animation: slideUp .3s ease;
+}
+.update-toast.show { display: flex }
+.update-toast-btn {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 16px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* ===== 响应式 ===== */
+@media (max-width: 480px) {
+  .h1 { font-size: 18px; letter-spacing: 2px }
+  .h2 { font-size: 15px }
+  .c { padding: 20px 16px }
+  .link-card { padding: 12px 16px; font-size: 14px }
+}
+
+/* 减少动画偏好 */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}
 </style>
 </head>
 <body>
-<main class="w">
-  <section class="hero">
-    <div class="tag"><i></i>地址实时可用 · 建议收藏</div>
-    <h1>永不失联<br>最新地址入口</h1>
-    <p>收藏本页防止迷路，点击下方线路即可进入。</p>
-  </section>
-  <section class="card">
-    <a class="mail" href="mailto:4@455555.XYZ" rel="nofollow">
-      <span class="m-icon">@</span>
-      <span><strong>4@455555.XYZ</strong><small>发邮件 30 秒内自动回复最新地址</small></span>
-    </a>
-    <div class="st">选择线路进入 <span>推荐 Chrome / Safari</span></div>
-    <div class="g">
-      <a class="entry" href="/r1.html" rel="nofollow"><span class="el"><span class="dot"></span><span><b>线路一</b> <small>www.455333.xyz</small></span></span><span class="go">进入</span></a>
-      <a class="entry" href="/r2.html" rel="nofollow"><span class="el"><span class="dot"></span><span><b>线路二</b> <small>www.466333.xyz</small></span></span><span class="go">进入</span></a>
-      <a class="entry" href="/r3.html" rel="nofollow"><span class="el"><span class="dot"></span><span><b>线路三</b> <small>www.477333.xyz</small></span></span><span class="go">进入</span></a>
-      <a class="entry" href="/r4.html" rel="nofollow"><span class="el"><span class="dot"></span><span><b>线路四</b> <small>www.488333.xyz</small></span></span><span class="go">进入</span></a>
-    </div>
-    <div class="tips"><b>请勿使用微信、QQ、抖音、快手、微博等 App 内置浏览器直接打开，</b>请复制本页链接到 Chrome / Edge / Safari 浏览器中打开，否则可能被拦截无法访问。</div>
-    <div class="notes">
-      <div class="note"><b>打不开怎么办</b>复制链接到 Chrome / Edge / Safari 打开。</div>
-      <div class="note"><b>防止迷路</b>添加到主屏幕或收藏本页，随时访问。</div>
-    </div>
-  </section>
-  <p class="ft">多收藏不同线路 · 建议截图保存本页</p>
-</main>
+
+<!-- 网络状态提示 -->
+<div id="netStatus" class="net-status">网络已断开</div>
+
+<!-- 更新提示 -->
+<div id="updateToast" class="update-toast">
+  <span>&#9888; 发现新版本</span>
+  <button id="updateBtn" class="update-toast-btn">立即更新</button>
+</div>
+
+<div class="h1">永不失联</div>
+<div class="h2">4@455555.XYZ</div>
+
+<div class="c">
+  <p class="tip">&#9993; 发邮件 30 秒内自动回复最新地址</p>
+  <p class="tip-s">未回复就是被拦截请更换其它邮箱发送</p>
+
+  <a class="link-card" href="https://www.qima.eu.org/" target="_blank" rel="noopener noreferrer">994555.XYZ</a>
+  <a class="link-card" href="https://www.nixi.eu.org/" target="_blank" rel="noopener noreferrer">www.994555.XYZ</a>
+  <a class="link-card" href="https://www.6767.eu.org/" target="_blank" rel="noopener noreferrer">455555.XYZ</a>
+  <a class="link-card" href="https://www.buqu.eu.org/" target="_blank" rel="noopener noreferrer">www.455555.XYZ</a>
+
+  <div class="bt">
+    <p>多收藏不同网址 &#128204; 推荐电信联通访问</p>
+    <p>移动网 / 国产浏览器会拦截网址</p>
+    <p>推荐截图 &#128247; 保存本页不迷路</p>
+    <p>&#128241; 建议收藏或截图保存本页</p>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// S 级 PWA 核心逻辑
+// ============================================================
+
+// ---------- 1. Service Worker 注册 ----------
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js', { scope: '/' })
+      .then((reg) => {
+        console.log('[PWA] SW 注册成功:', reg.scope);
+
+        // 监听更新
+        reg.addEventListener('updatefound', () => {
+          const newWorker = reg.installing;
+          newWorker.addEventListener('statechange', () => {
+            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+              showUpdateToast(newWorker);
+            }
+          });
+        });
+      })
+      .catch((err) => console.error('[PWA] SW 注册失败:', err));
+
+    // 监听来自 SW 的消息
+    navigator.serviceWorker.addEventListener('message', (event) => {
+      if (event.data && event.data.type === 'SW_UPDATED') {
+        window.location.reload();
+      }
+    });
+  });
+}
+
+// ---------- 3. 网络状态监测 ----------
+const netStatus = document.getElementById('netStatus');
+
+function updateNetworkStatus() {
+  if (!navigator.onLine) {
+    netStatus.textContent = '&#128308; 网络已断开，已切换离线模式';
+    netStatus.className = 'net-status offline';
+    setTimeout(() => { netStatus.style.transform = 'translateY(-100%)'; }, 3000);
+  } else {
+    netStatus.textContent = '&#128994; 网络已恢复';
+    netStatus.className = 'net-status online';
+    setTimeout(() => { netStatus.style.transform = 'translateY(-100%)'; }, 2000);
+    setTimeout(() => { netStatus.style.transform = ''; }, 2500);
+  }
+}
+
+window.addEventListener('online', updateNetworkStatus);
+window.addEventListener('offline', updateNetworkStatus);
+
+// ---------- 4. 更新提示 ----------
+const updateToast = document.getElementById('updateToast');
+const updateBtn = document.getElementById('updateBtn');
+let waitingWorker = null;
+
+function showUpdateToast(worker) {
+  waitingWorker = worker;
+  updateToast.classList.add('show');
+}
+
+updateBtn.addEventListener('click', () => {
+  if (waitingWorker) {
+    waitingWorker.postMessage('skipWaiting');
+    updateToast.classList.remove('show');
+  }
+});
+
+// ---------- 5. 后台同步注册 ----------
+async function registerBackgroundSync() {
+  if ('serviceWorker' in navigator && 'SyncManager' in window) {
+    try {
+      const reg = await navigator.serviceWorker.ready;
+      await reg.sync.register('sync-logs');
+      console.log('[PWA] 后台同步已注册');
+    } catch (err) {
+      console.error('[PWA] 后台同步注册失败:', err);
+    }
+  }
+}
+registerBackgroundSync();
+
+// ---------- 6. 定期同步注册 ----------
+async function registerPeriodicSync() {
+  if ('serviceWorker' in navigator && 'PeriodicSyncManager' in window) {
+    try {
+      const reg = await navigator.serviceWorker.ready;
+      await reg.periodicSync.register('cleanup-cache', { minInterval: 24 * 60 * 60 * 1000 });
+      console.log('[PWA] 定期同步已注册');
+    } catch (err) {
+      console.error('[PWA] 定期同步注册失败:', err);
+    }
+  }
+}
+registerPeriodicSync();
+
+// ---------- 7. 推送通知订阅 ----------
+async function subscribePush() {
+  if (!('PushManager' in window)) return;
+  try {
+    const reg = await navigator.serviceWorker.ready;
+    const sub = await reg.pushManager.subscribe({
+      userVisibleOnly: true,
+      applicationServerKey: urlBase64ToUint8Array(
+        'BEl62iSMfVjLm4U3e3K8RnPDpK5e9x8VfQy_oP0XUe0'
+      )
+    });
+    console.log('[PWA] 推送订阅成功:', sub.endpoint);
+  } catch (err) {
+    console.error('[PWA] 推送订阅失败:', err);
+  }
+}
+
+function urlBase64ToUint8Array(base64String) {
+  const padding = '='.repeat((4 - base64String.length % 4) % 4);
+  const base64 = (base64String + padding).replace(/\-/g, '+').replace(/_/g, '/');
+  const rawData = window.atob(base64);
+  return Uint8Array.from([...rawData].map((char) => char.charCodeAt(0)));
+}
+
+// ---------- 8. 页面可见性 API - 节省资源 ----------
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) {
+    console.log('[PWA] 页面隐藏，暂停非必要任务');
+  } else {
+    console.log('[PWA] 页面显示，恢复任务');
+  }
+});
+
+// ---------- 9. 性能监控 ----------
+if ('performance' in window) {
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      const perf = performance.getEntriesByType('navigation')[0];
+      if (perf) {
+        console.log(`[PWA] 页面加载时间: ${Math.round(perf.loadEventEnd - perf.startTime)}ms`);
+      }
+    }, 0);
+  });
+}
+
+console.log('[PWA] S 级 PWA 初始化完成');
+</script>
 </body>
 </html>
