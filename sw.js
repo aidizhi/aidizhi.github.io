@@ -1,11 +1,11 @@
 // ============================================================
-// 永不失联 - S 级 PWA Service Worker
+// 永不失联 - 标准 PWA Service Worker
 // 版本: v2.0.0 | 策略: Stale-While-Revalidate + Network-First
 // ============================================================
 
-const CACHE_NAME = 'aidizhi-v2';
-const STATIC_CACHE = 'aidizhi-static-v2';
-const IMAGE_CACHE = 'aidizhi-images-v2';
+const CACHE_NAME = 'aidizhi-v3-pwa';
+const STATIC_CACHE = 'aidizhi-static-v3-pwa';
+const IMAGE_CACHE = 'aidizhi-images-v3-pwa';
 const OFFLINE_URL = '/offline.html';
 
 // 核心资源 - 安装时预缓存
@@ -178,65 +178,6 @@ self.addEventListener('fetch', (event) => {
 });
 
 // ============================================================
-// 后台同步 - 用于离线时记录用户操作，联网后同步
-// ============================================================
-self.addEventListener('sync', (event) => {
-  if (event.tag === 'sync-logs') {
-    event.waitUntil(syncOfflineLogs());
-  }
-});
-
-async function syncOfflineLogs() {
-  // 从 IndexedDB 读取离线日志并同步
-  // 这里预留接口，实际使用时接入后端
-  console.log('[SW] 后台同步触发');
-}
-
-// ============================================================
-// 推送通知支持
-// ============================================================
-self.addEventListener('push', (event) => {
-  const data = event.data ? event.data.json() : {};
-  const title = data.title || '永不失联';
-  const options = {
-    body: data.body || '有新的地址更新，点击查看',
-    icon: '/icon-192x192.png',
-    badge: '/favicon-32.png',
-    tag: data.tag || 'default',
-    requireInteraction: false,
-    data: data.url || '/',
-    actions: data.actions || [
-      { action: 'open', title: '打开' },
-      { action: 'close', title: '关闭' }
-    ]
-  };
-
-  event.waitUntil(self.registration.showNotification(title, options));
-});
-
-// 点击通知
-self.addEventListener('notificationclick', (event) => {
-  event.notification.close();
-  const url = event.notification.data || '/';
-
-  event.waitUntil(
-    self.clients.matchAll({ type: 'window', includeUncontrolled: true })
-      .then((clientList) => {
-        // 如果已有窗口打开，聚焦它
-        for (const client of clientList) {
-          if (client.url === url && 'focus' in client) {
-            return client.focus();
-          }
-        }
-        // 否则打开新窗口
-        if (self.clients.openWindow) {
-          return self.clients.openWindow(url);
-        }
-      })
-  );
-});
-
-// ============================================================
 // 消息处理 - 与页面通信
 // ============================================================
 self.addEventListener('message', (event) => {
@@ -270,34 +211,3 @@ self.addEventListener('message', (event) => {
     );
   }
 });
-
-// ============================================================
-// 定期清理过期图片缓存
-// ============================================================
-self.addEventListener('periodicsync', (event) => {
-  if (event.tag === 'cleanup-cache') {
-    event.waitUntil(cleanupOldCaches());
-  }
-});
-
-async function cleanupOldCaches() {
-  const imageCache = await caches.open(IMAGE_CACHE);
-  const requests = await imageCache.keys();
-  const now = Date.now();
-  const maxAge = 30 * 24 * 60 * 60 * 1000; // 30 天
-
-  for (const request of requests) {
-    const response = await imageCache.match(request);
-    if (response) {
-      const dateHeader = response.headers.get('date');
-      if (dateHeader) {
-        const date = new Date(dateHeader).getTime();
-        if (now - date > maxAge) {
-          await imageCache.delete(request);
-        }
-      }
-    }
-  }
-}
-
-console.log('[SW] S 级 PWA Service Worker 已加载');
