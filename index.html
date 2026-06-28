@@ -26,7 +26,7 @@ h1{font-size:36px;line-height:1.1;letter-spacing:-.06em;margin:18px 0 10px}
 .card{position:relative;overflow:hidden;background:var(--card);border:1px solid rgba(255,255,255,.72);border-radius:28px;padding:18px;box-shadow:0 30px 70px rgba(2,6,23,.34),inset 0 1px 0 rgba(255,255,255,.85)}
 .card::before{content:"";position:absolute;inset:0 0 auto;height:110px;background:linear-gradient(135deg,rgba(124,58,237,.14),rgba(236,72,153,.1),rgba(249,115,22,.08));pointer-events:none}
 .mail{position:relative;display:flex;align-items:center;gap:12px;text-decoration:none;color:#fff;border-radius:22px;padding:15px;background:linear-gradient(135deg,var(--brand),var(--pink) 60%,var(--orange));box-shadow:0 16px 34px rgba(124,58,237,.28);margin-bottom:6px}
-.mail:active,.entry:active,.copy:active{transform:scale(.985)}
+.mail:active,.entry:active{transform:scale(.985)}
 .m-icon{display:grid;place-items:center;flex:0 0 42px;height:42px;border-radius:15px;background:rgba(255,255,255,.18);font-size:21px;font-weight:900}
 .mail strong{display:block;font-size:17px}
 .mail small{display:block;color:rgba(255,255,255,.78);font-size:12px;margin-top:2px}
@@ -46,14 +46,13 @@ h1{font-size:36px;line-height:1.1;letter-spacing:-.06em;margin:18px 0 10px}
 .entry:nth-child(2) .go{background:#ffe4e6;color:#be123c}
 .entry:nth-child(3) .go{background:#dcfce7;color:#15803d}
 .entry:nth-child(4) .go{background:#ffedd5;color:#c2410c}
-.copy{width:100%;border:0;margin-top:12px;border-radius:18px;padding:13px 14px;background:#111827;color:#fff;font:inherit;font-weight:850;cursor:pointer;font-size:14px}
 .notes{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}
 .note{border-radius:16px;background:#f8fafc;border:1px solid #eef2ff;padding:11px;color:#64748b;font-size:12px;line-height:1.55}
 .note b{display:block;color:#334155;font-size:13px;margin-bottom:2px}
 .ft{color:rgba(255,255,255,.5);font-size:11px;margin:14px 8px 0;text-align:center}
-@media(hover:hover){.entry:hover,.mail:hover{transform:translateY(-2px);box-shadow:0 16px 28px rgba(15,23,42,.1)}.copy:hover{opacity:.92}}
+@media(hover:hover){.entry:hover,.mail:hover{transform:translateY(-2px);box-shadow:0 16px 28px rgba(15,23,42,.1)}}
 @media(max-width:360px){body{padding:12px}.card{border-radius:22px;padding:14px}h1{font-size:31px}.notes{grid-template-columns:1fr}.mail strong{font-size:16px}}
-@media(prefers-color-scheme:dark){:root{color-scheme:dark}.card{background:rgba(15,23,42,.86);border-color:rgba(255,255,255,.14)}.st,.entry{color:#f8fafc}.entry{background:rgba(15,23,42,.9);border-color:rgba(255,255,255,.09)}.entry small{color:#94a3b8}.notes .note{background:rgba(15,23,42,.76);border-color:rgba(255,255,255,.08);color:#94a3b8}.note b{color:#e2e8f0}.copy{background:#fff;color:#111827}}
+@media(prefers-color-scheme:dark){:root{color-scheme:dark}.card{background:rgba(15,23,42,.86);border-color:rgba(255,255,255,.14)}.st,.entry{color:#f8fafc}.entry{background:rgba(15,23,42,.9);border-color:rgba(255,255,255,.09)}.entry small{color:#94a3b8}.notes .note{background:rgba(15,23,42,.76);border-color:rgba(255,255,255,.08);color:#94a3b8}.note b{color:#e2e8f0}}
 </style>
 </head>
 <body>
@@ -75,7 +74,6 @@ h1{font-size:36px;line-height:1.1;letter-spacing:-.06em;margin:18px 0 10px}
       <a class="entry" href="/r3.html" rel="nofollow"><span class="el"><span class="dot"></span><span><b>线路三</b> <small>www.477333.xyz</small></span></span><span class="go">进入</span></a>
       <a class="entry" href="/r4.html" rel="nofollow"><span class="el"><span class="dot"></span><span><b>线路四</b> <small>www.488333.xyz</small></span></span><span class="go">进入</span></a>
     </div>
-    <button class="copy" id="c" type="button">复制当前页面地址</button>
     <div class="notes">
       <div class="note"><b>打不开怎么办</b>复制本页链接到 Chrome / Edge / Safari。</div>
       <div class="note"><b>防止迷路</b>添加到主屏幕或收藏本页，随时访问。</div>
@@ -83,8 +81,5 @@ h1{font-size:36px;line-height:1.1;letter-spacing:-.06em;margin:18px 0 10px}
   </section>
   <p class="ft">本页已设置禁止索引，所有地址均经过加密处理，防爬虫抓取。</p>
 </main>
-<script>
-var b=document.getElementById('c');b.onclick=function(){var t=location.href.split('#')[0];function ok(){b.textContent='已复制';setTimeout(function(){b.textContent='复制当前页面地址'},2e3)}function fb(){var i=document.createElement('textarea');i.value=t;document.body.appendChild(i);i.select();document.execCommand('copy');document.body.removeChild(i);ok()}navigator.clipboard&&navigator.clipboard.writeText?navigator.clipboard.writeText(t).then(ok).catch(fb):fb()};
-</script>
 </body>
 </html>
