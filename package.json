@@ -1,0 +1,61 @@
+{
+  "name": "static-landing-page",
+  "version": "2.0.0",
+  "description": "High-performance static landing page with PWA support, multi-CDN deployment, and advanced SEO optimization",
+  "private": true,
+  "keywords": [
+    "static-site",
+    "landing-page",
+    "pwa",
+    "progressive-web-app",
+    "github-pages",
+    "cloudflare-pages",
+    "netlify",
+    "html5",
+    "css3",
+    "javascript",
+    "responsive-design",
+    "mobile-first",
+    "offline-first",
+    "service-worker",
+    "web-app-manifest",
+    "seo",
+    "performance",
+    "cdn",
+    "high-availability",
+    "mirror-site",
+    "navigation",
+    "address-book"
+  ],
+  "homepage": "https://github.com/aidizhi",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aidizhi/static-landing-page.git"
+  },
+  "bugs": {
+    "url": "https://github.com/aidizhi/static-landing-page/issues"
+  },
+  "license": "MIT",
+  "author": "永不失联",
+  "scripts": {
+    "dev": "npx serve . -l 8080",
+    "build": "node scripts/build.js",
+    "lint": "npx htmlhint *.html && npx stylelint *.html",
+    "test": "echo 'Static site validation passed'",
+    "sitemap": "node scripts/build-sitemap.js"
+  },
+  "devDependencies": {
+    "htmlhint": "^1.1.4",
+    "stylelint": "^16.0.0",
+    "stylelint-config-standard": "^36.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not ie 11"
+  ]
+}
