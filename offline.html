@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="description" content="当前处于离线状态，请检查网络连接" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/manifest.json" />
+  <title>离线 - 永不失联</title>
+  <style>
+    :root {
+      --bg: #fff;
+      --fg: #111;
+      --muted: #666;
+      --accent: #f90;
+      --accent-hover: #e68000;
+      --border: #eee;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0a0a0a;
+        --fg: #f0f0f0;
+        --muted: #999;
+        --accent: #f90;
+        --accent-hover: #ffb84d;
+        --border: #222;
+      }
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box }
+    html { -webkit-text-size-adjust: 100% }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 24px;
+      text-align: center;
+      transition: background .3s, color .3s;
+    }
+
+    /* 脉冲动画图标 */
+    .icon-wrap {
+      position: relative;
+      width: 100px;
+      height: 100px;
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .icon-wrap::before,
+    .icon-wrap::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      border: 2px solid var(--accent);
+      opacity: 0;
+    }
+    .icon-wrap::before {
+      width: 100%;
+      height: 100%;
+      animation: pulse-ring 2s cubic-bezier(.4,0,.6,1) infinite;
+    }
+    .icon-wrap::after {
+      width: 70%;
+      height: 70%;
+      animation: pulse-ring 2s cubic-bezier(.4,0,.6,1) infinite .5s;
+    }
+    @keyframes pulse-ring {
+      0% { transform: scale(.8); opacity: .6 }
+      100% { transform: scale(1.4); opacity: 0 }
+    }
+
+    .icon {
+      font-size: 48px;
+      z-index: 1;
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0) }
+      50% { transform: translateY(-8px) }
+    }
+
+    h1 {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--fg);
+      margin-bottom: 10px;
+      letter-spacing: 1px;
+    }
+
+    p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 300px;
+      margin-bottom: 8px;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin: 16px 0 24px;
+      padding: 8px 16px;
+      background: var(--border);
+      border-radius: 20px;
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #dc3545;
+      animation: blink 1.5s ease-in-out infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1 }
+      50% { opacity: .3 }
+    }
+    .status-dot.online {
+      background: #28a745;
+      animation: none;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all .25s cubic-bezier(.4,0,.2,1);
+      box-shadow: 0 2px 12px rgba(255,153,0,.3);
+    }
+    .btn:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(255,153,0,.4);
+    }
+    .btn:active { transform: translateY(0) }
+    .btn:disabled {
+      opacity: .6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 12px;
+      padding: 10px 20px;
+      background: transparent;
+      color: var(--muted);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all .25s;
+    }
+    .btn-secondary:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .cached-info {
+      margin-top: 32px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .cached-info p { margin-bottom: 4px; max-width: none }
+
+    /* 加载动画 */
+    .spinner {
+      display: none;
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255,255,255,.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin .8s linear infinite;
+    }
+    .btn.loading .spinner { display: inline-block }
+    .btn.loading .btn-text { opacity: .7 }
+    @keyframes spin { to { transform: rotate(360deg) } }
+
+    @media (max-width: 480px) {
+      h1 { font-size: 19px }
+      .icon-wrap { width: 84px; height: 84px }
+      .icon { font-size: 40px }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important }
+    }
+  </style>
+</head>
+<body>
+  <div class="icon-wrap">
+    <div class="icon">&#128308;</div>
+  </div>
+
+  <h1>网络连接已断开</h1>
+  <p>当前处于离线状态，请检查网络连接后重试。</p>
+  <p>已缓存的页面仍可正常访问，离线状态下也能打开。</p>
+
+  <div class="status" id="status">
+    <span class="status-dot" id="statusDot"></span>
+    <span id="statusText">正在检测网络...</span>
+  </div>
+
+  <button class="btn" id="retryBtn" onclick="retryConnection()">
+    <span class="spinner"></span>
+    <span class="btn-text">&#128260; 重新连接</span>
+  </button>
+
+  <a class="btn-secondary" href="/">&#127968; 返回首页</a>
+
+  <div class="cached-info">
+    <p>&#128190; 本页面已缓存，支持离线访问</p>
+    <p>最后更新: <span id="cacheTime">--</span></p>
+  </div>
+
+  <script>
+    const statusDot = document.getElementById('statusDot');
+    const statusText = document.getElementById('statusText');
+    const retryBtn = document.getElementById('retryBtn');
+    const cacheTime = document.getElementById('cacheTime');
+
+    // 显示缓存时间
+    cacheTime.textContent = new Date().toLocaleString('zh-CN');
+
+    // 更新网络状态显示
+    function updateStatus() {
+      if (navigator.onLine) {
+        statusDot.className = 'status-dot online';
+        statusText.textContent = '网络已恢复';
+        retryBtn.innerHTML = '<span class="spinner"></span><span class="btn-text">&#127968; 前往首页</span>';
+        retryBtn.onclick = () => { location.href = '/'; };
+      } else {
+        statusDot.className = 'status-dot';
+        statusText.textContent = '等待网络连接...';
+      }
+    }
+
+    // 重试连接
+    async function retryConnection() {
+      retryBtn.classList.add('loading');
+      retryBtn.disabled = true;
+
+      try {
+        // 尝试 ping 一个资源检测网络
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 5000);
+
+        await fetch('/', {
+          method: 'HEAD',
+          cache: 'no-store',
+          signal: controller.signal
+        });
+
+        clearTimeout(timeout);
+        updateStatus();
+
+        // 延迟后跳转首页
+        setTimeout(() => {
+          location.href = '/';
+        }, 800);
+      } catch (err) {
+        retryBtn.classList.remove('loading');
+        retryBtn.disabled = false;
+        statusText.textContent = '网络仍不可用，请稍后再试';
+        setTimeout(() => {
+          statusText.textContent = '等待网络连接...';
+        }, 3000);
+      }
+    }
+
+    // 监听网络变化
+    window.addEventListener('online', () => {
+      updateStatus();
+      // 自动跳转
+      setTimeout(() => {
+        if (navigator.onLine) location.href = '/';
+      }, 1500);
+    });
+
+    window.addEventListener('offline', updateStatus);
+
+    // 初始化状态
+    updateStatus();
+
+    // 定期检测网络（每 5 秒）
+    setInterval(() => {
+      if (navigator.onLine) {
+        updateStatus();
+      }
+    }, 5000);
+  </script>
+</body>
+</html>
